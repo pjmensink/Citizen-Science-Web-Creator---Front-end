@@ -116,7 +116,7 @@ class App extends Component {
 			</div>
 			<hr />
 			<p>Uploaded Image:</p>
-			<img src={this.state.imageURL} alt="img" />
+			<img style={{"height" : "50px", "width" : "100px"}} src={this.state.imageURL} alt="img" />
 		</form>
         </div>
       
