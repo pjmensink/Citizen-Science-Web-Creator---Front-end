@@ -1,7 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { userActions } from '../_actions';
 
 
-class HomePage extends Component {
+class HomePage extends React.Component {
+	
+  componentDidMount() {
+        this.props.dispatch(userActions.getAll());
+  }
+  
+  handleDeleteUser(id) {
+        return (e) => this.props.dispatch(userActions.delete(id));
+  }
+  
   constructor(props) {
     super(props);
     this.state = {loc: '',
@@ -25,24 +38,17 @@ class HomePage extends Component {
     });
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    
-    const data = new FormData();
-	data.append('location', this.state.loc);
-	data.append('catch_size', this.state.size);
-	data.append('conditions', this.state.conditions);
-	data.append('date', this.state.date);
+  handleSubmit(e) {
+    e.preventDefault();
 
-	fetch('http://localhost:8000/test', {
-		method: 'POST',
-		body: data
-		}).then(response => {
-			response.json().then(body => {
-			this.setState();
-			alert("Submitted Data");
-		});
-	});
+    this.setState({ submitted: true });
+    const loc = this.state.loc;
+    const size = this.state.size;
+    const conditions = this.state.conditions;
+    const date = this.state.date;
+    const imageURL = this.state.imageURL;
+    const { dispatch } = this.props;
+    dispatch(userActions.submit(loc, size, conditions, date, imageURL));
   }
   
   handleUploadImage(event) {
@@ -52,7 +58,7 @@ class HomePage extends Component {
     data.append('file', this.uploadInput.files[0]);
     data.append('filename', this.fileName.value);
 
-    fetch('http://localhost:8000/upload', {
+    fetch('http://localhost:4000/upload', {
       method: 'POST',
       body: data
     }).then(response => {
@@ -63,6 +69,7 @@ class HomePage extends Component {
   }
   
   render() {
+	const { user, users } = this.props;
     return (
         <div className="inputForm">
           <form onSubmit={this.handleSubmit}>
@@ -121,4 +128,14 @@ class HomePage extends Component {
   }
 }
 
-export default HomePage;
+function mapStateToProps(state) {
+    const { users, authentication } = state;
+    const { user } = authentication;
+    return {
+        user,
+        users
+    };
+}
+
+const connectedHomePage = connect(mapStateToProps)(HomePage);
+export { connectedHomePage as HomePage };
