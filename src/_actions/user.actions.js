@@ -9,6 +9,8 @@ export const userActions = {
     register,
     getAll,
     submit,
+    submitImage,
+    getHistory,
     delete: _delete
 };
 
@@ -109,3 +111,30 @@ function submit(id, loc, size, conditions, date, imageURL) {
     };
 }
 
+function submitImage(file, filename) {
+    return dispatch => {
+        userService.saveImage(file, filename)
+            .then(
+                response => { 
+                    dispatch(alertActions.success('Submitted Data'));
+                },
+                error => {
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+}
+
+function getHistory() {
+    return dispatch => {
+        userService.getUsersData()
+            .then(
+                response => { 
+                    dispatch(alertActions.success(JSON.stringify(response)));
+                },
+                error => {
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+}

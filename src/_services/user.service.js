@@ -9,6 +9,8 @@ export const userService = {
     getById,
     update,
     saveData,
+    saveImage,
+    getUsersData,
     delete: _delete
 };
 
@@ -103,13 +105,40 @@ function handleResponse(response) {
     });
 }
 
-function saveData(location, date, conditions, catch_size, imageURL) {
+function saveData(location, catch_size, conditions, date, imageURL) {
 	const user = localStorage.getItem('user');
-	id = JSON.parse(user)._id
+	const userId = JSON.parse(user)._id
 	const requestOptions = {
         method: 'POST',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, location, date, conditions, catch_size, imageURL })
+        body: JSON.stringify({ userId, location, catch_size, conditions, date, imageURL })
     };
     return fetch(`${config.apiUrl}/fishdata/submit`, requestOptions).then(handleResponse);
+}
+
+function saveImage(file, filename) {
+	
+	const data = new FormData();
+    data.append('file', file);
+    data.append('filename', filename);
+	const requestOptions = {
+        method: 'POST',
+        headers: { ...authHeader(), 'Content-Type': 'image/jpeg' },
+        body: data
+    };
+    
+    return fetch(`${config.apiUrl}/upload`, requestOptions).then(handleResponse);
+}
+
+function getUsersData() {
+	const user = localStorage.getItem('user');
+	const userId = JSON.parse(user)._id
+	
+	const requestOptions = {
+        method: 'POST',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId })
+    };
+    
+    return fetch(`${config.apiUrl}/fishdata/getAll`, requestOptions).then(handleResponse);
 }

@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import { userActions } from '../_actions';
 
-
 class HomePage extends React.Component {
 	
   componentDidMount() {
@@ -27,6 +26,7 @@ class HomePage extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleUploadImage = this.handleUploadImage.bind(this);
+    this.getHistory = this.getHistory.bind(this);
   }
 
   handleChange(event) {
@@ -51,33 +51,44 @@ class HomePage extends React.Component {
     dispatch(userActions.submit(loc, size, conditions, date, imageURL));
   }
   
-  handleUploadImage(event) {
-    event.preventDefault();
-
-    const data = new FormData();
-    data.append('file', this.uploadInput.files[0]);
-    data.append('filename', this.fileName.value);
-
-    fetch('http://localhost:4000/upload', {
-      method: 'POST',
-      body: data
-    }).then(response => {
-      response.json().then(body => {
-        this.setState({ imageURL: `http://localhost:8000/${body.file}` });
-      });
-    });
+  handleUploadImage(e) {
+	e.preventDefault();
+	const { dispatch } = this.props;
+	dispatch(userActions.submitImage(this.uploadInput.files[0], this.fileName.value));
+  }
+  
+  getHistory() {
+	const { dispatch } = this.props;
+    dispatch(userActions.getHistory());
   }
   
   render() {
 	const { user, users } = this.props;
     return (
+
         <div className="inputForm">
+          <p>
+            <Link to="/login">Logout</Link>
+          </p>
           <form onSubmit={this.handleSubmit}>
           
 			<label>
 				Location:<br/>
 			<input name="loc" type="text" value={this.state.loc} onChange={this.handleChange} />
 			</label>
+			<div style={{display:"inline-block", float:"right", width:"50%"}}>
+				<table style={{"borderWidth":"1px", 'borderStyle':'solid'}}>
+					<thead>
+						<tr>
+							<th style={{"borderWidth":"1px", 'borderStyle':'solid'}}>Location</th>
+							<th style={{"borderWidth":"1px", 'borderStyle':'solid'}}>Date</th>
+							<th style={{"borderWidth":"1px", 'borderStyle':'solid'}}>Size</th>
+							<th style={{"borderWidth":"1px", 'borderStyle':'solid'}}>Conditions</th>
+							<th style={{"borderWidth":"1px", 'borderStyle':'solid'}}>Image</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
 			<br/>
 			<label>
 				Catch Size:<br/>
@@ -93,7 +104,10 @@ class HomePage extends React.Component {
 			</label><br/>
 				<input type="submit" value="Submit" />
           </form>
-          
+          <div>
+			<button onClick={this.getHistory}>Get My Upload History</button>
+			
+		  </div>
           <h1>FileUpload</h1>
 		<form onSubmit={this.handleUploadImage}>
 			<div>
