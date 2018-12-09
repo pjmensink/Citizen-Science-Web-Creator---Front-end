@@ -63,7 +63,7 @@ class HomePage extends React.Component {
   }
   
   render() {
-	const { user, users } = this.props;
+	const { user, users, hist } = this.props;
     return (
 
         <div className="inputForm">
@@ -77,17 +77,30 @@ class HomePage extends React.Component {
 			<input name="loc" type="text" value={this.state.loc} onChange={this.handleChange} />
 			</label>
 			<div style={{display:"inline-block", float:"right", width:"50%"}}>
-				<table style={{"borderWidth":"1px", 'borderStyle':'solid'}}>
+				
+				{hist.items &&
+					<table style={{"borderWidth":"1px", 'borderStyle':'solid'}}>
 					<thead>
 						<tr>
-							<th style={{"borderWidth":"1px", 'borderStyle':'solid'}}>Location</th>
-							<th style={{"borderWidth":"1px", 'borderStyle':'solid'}}>Date</th>
-							<th style={{"borderWidth":"1px", 'borderStyle':'solid'}}>Size</th>
-							<th style={{"borderWidth":"1px", 'borderStyle':'solid'}}>Conditions</th>
-							<th style={{"borderWidth":"1px", 'borderStyle':'solid'}}>Image</th>
+							<th style={{"borderWidth":"1px", 'borderStyle':'solid', 'padding':'5px', 'text-align':'center'}}>Location</th>
+							<th style={{"borderWidth":"1px", 'borderStyle':'solid', 'padding':'5px', 'text-align':'center'}}>Date</th>
+							<th style={{"borderWidth":"1px", 'borderStyle':'solid', 'padding':'5px', 'text-align':'center'}}>Size</th>
+							<th style={{"borderWidth":"1px", 'borderStyle':'solid', 'padding':'5px', 'text-align':'center'}}>Conditions</th>
+							<th style={{"borderWidth":"1px", 'borderStyle':'solid', 'padding':'5px', 'text-align':'center'}}>Image</th>
 						</tr>
+                        {hist.items.map((item, index) =>
+                           <tr key={item._id}>
+								<td style={{"borderWidth":"1px", 'borderStyle':'solid', 'padding':'5px', 'text-align':'center'}}>{item.location}</td>
+								<td style={{"borderWidth":"1px", 'borderStyle':'solid', 'padding':'5px', 'text-align':'center'}}>{item.date}</td>
+								<td style={{"borderWidth":"1px", 'borderStyle':'solid', 'padding':'5px', 'text-align':'center'}}>{item.catch_size}</td>
+								<td style={{"borderWidth":"1px", 'borderStyle':'solid', 'padding':'5px', 'text-align':'center'}}>{item.conditions}</td>
+								<td style={{"borderWidth":"1px", 'borderStyle':'solid', 'padding':'5px', 'text-align':'center'}}>{item.imageURL}</td>
+                            </tr>
+                        )}
 					</thead>
-				</table>
+					</table>
+				}
+					
 			</div>
 			<br/>
 			<label>
@@ -143,11 +156,12 @@ class HomePage extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const { users, authentication } = state;
+    const { hist, users, authentication } = state;
     const { user } = authentication;
     return {
         user,
-        users
+        users,
+        hist
     };
 }
 

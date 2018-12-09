@@ -127,14 +127,21 @@ function submitImage(file, filename) {
 
 function getHistory() {
     return dispatch => {
+		dispatch(request());
+		dispatch(alertActions.clear());
+		
         userService.getUsersData()
             .then(
                 response => { 
-                    dispatch(alertActions.success(JSON.stringify(response)));
+                    dispatch(success(response));
                 },
                 error => {
-                    dispatch(alertActions.error(error.toString()));
+                    dispatch(failure(error.toString()));
                 }
             );
     };
+    
+    function request() { return { type: userConstants.GETHIST_REQUEST } }
+    function success(res) { return { type: userConstants.GETHIST_SUCCESS, res } }
+    function failure(error) { return { type: userConstants.GETHIST_FAILURE, error } }
 }
