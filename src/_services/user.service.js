@@ -123,7 +123,7 @@ function saveImage(file, filename) {
     data.append('filename', filename);
 	const requestOptions = {
         method: 'POST',
-        headers: { ...authHeader(), 'Content-Type': 'image/jpeg' },
+        headers: { ...authHeader() },
         body: data
     };
     

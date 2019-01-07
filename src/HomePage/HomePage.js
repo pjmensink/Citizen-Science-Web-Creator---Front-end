@@ -20,13 +20,11 @@ class HomePage extends React.Component {
                   size: '',
                   conditions: '',
                   date: '',
-                  imageURL: ''
+                  photo: ''
                   };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleUploadImage = this.handleUploadImage.bind(this);
-    this.getHistory = this.getHistory.bind(this);
   }
 
   handleChange(event) {
@@ -46,20 +44,10 @@ class HomePage extends React.Component {
     const size = this.state.size;
     const conditions = this.state.conditions;
     const date = this.state.date;
-    const imageURL = this.state.imageURL;
+    const imageURL = this.state.photo.split("\\").pop();
     const { dispatch } = this.props;
     dispatch(userActions.submit(loc, size, conditions, date, imageURL));
-  }
-  
-  handleUploadImage(e) {
-	e.preventDefault();
-	const { dispatch } = this.props;
-	dispatch(userActions.submitImage(this.uploadInput.files[0], this.fileName.value));
-  }
-  
-  getHistory() {
-	const { dispatch } = this.props;
-    dispatch(userActions.getHistory());
+    dispatch(userActions.submitImage(this.uploadInput.files[0], this.state.photo.split("\\").pop().split(".")[0]));
   }
   
   render() {
@@ -67,41 +55,14 @@ class HomePage extends React.Component {
     return (
 
         <div className="inputForm">
-          <p>
-            <Link to="/login">Logout</Link>
-          </p>
+  
           <form onSubmit={this.handleSubmit}>
           
 			<label>
 				Location:<br/>
 			<input name="loc" type="text" value={this.state.loc} onChange={this.handleChange} />
 			</label>
-			<div style={{display:"inline-block", float:"right", width:"50%"}}>
-				
-				{hist.items &&
-					<table style={{"borderWidth":"1px", 'borderStyle':'solid'}}>
-					<thead>
-						<tr>
-							<th style={{"borderWidth":"1px", 'borderStyle':'solid', 'padding':'5px', 'text-align':'center'}}>Location</th>
-							<th style={{"borderWidth":"1px", 'borderStyle':'solid', 'padding':'5px', 'text-align':'center'}}>Date</th>
-							<th style={{"borderWidth":"1px", 'borderStyle':'solid', 'padding':'5px', 'text-align':'center'}}>Size</th>
-							<th style={{"borderWidth":"1px", 'borderStyle':'solid', 'padding':'5px', 'text-align':'center'}}>Conditions</th>
-							<th style={{"borderWidth":"1px", 'borderStyle':'solid', 'padding':'5px', 'text-align':'center'}}>Image</th>
-						</tr>
-                        {hist.items.map((item, index) =>
-                           <tr key={item._id}>
-								<td style={{"borderWidth":"1px", 'borderStyle':'solid', 'padding':'5px', 'text-align':'center'}}>{item.location}</td>
-								<td style={{"borderWidth":"1px", 'borderStyle':'solid', 'padding':'5px', 'text-align':'center'}}>{item.date}</td>
-								<td style={{"borderWidth":"1px", 'borderStyle':'solid', 'padding':'5px', 'text-align':'center'}}>{item.catch_size}</td>
-								<td style={{"borderWidth":"1px", 'borderStyle':'solid', 'padding':'5px', 'text-align':'center'}}>{item.conditions}</td>
-								<td style={{"borderWidth":"1px", 'borderStyle':'solid', 'padding':'5px', 'text-align':'center'}}>{item.imageURL}</td>
-                            </tr>
-                        )}
-					</thead>
-					</table>
-				}
-					
-			</div>
+	
 			<br/>
 			<label>
 				Catch Size:<br/>
@@ -115,40 +76,27 @@ class HomePage extends React.Component {
 				Date:<br/>
 				<input name="date" type="date" value={this.state.date} onChange={this.handleChange} />
 			</label><br/>
-				<input type="submit" value="Submit" />
-          </form>
+          
           <div>
-			<button onClick={this.getHistory}>Get My Upload History</button>
 			
 		  </div>
           <h1>FileUpload</h1>
-		<form onSubmit={this.handleUploadImage}>
 			<div>
 				<input
 					ref={ref => {
 						this.uploadInput = ref;
 					}}
 					type="file"
+					name='photo'
+					onChange={this.handleChange}
 				/>
 			</div>
-			<br />
-			<div>
-			<input
-				ref={ref => {
-					this.fileName = ref;
-				}}
-				type="text"
-				placeholder="Enter the desired name of file"
-			/>
-			</div>
-			<br />
-			<div>
-				<button>Upload</button>
-			</div>
+			<input type="submit" value="Submit" />
 			<hr />
 			<p>Uploaded Image:</p>
 			<img style={{"height" : "50px", "width" : "100px"}} src={this.state.imageURL} alt="img" />
-		</form>
+			
+			</form>
         </div>
       
     );
