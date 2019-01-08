@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 
 import { userActions } from '../_actions';
 
+import ReactTable from "react-table";
+
+import 'react-table/react-table.css'
+
 class HistoryPage extends React.Component {
 	
   componentDidMount() {
@@ -21,12 +25,35 @@ class HistoryPage extends React.Component {
   
   render() {
 	const { user, users, hist } = this.props;
+
+	const columns = [{
+		Header: 'Location',
+		accessor: 'location' 
+	}, {
+		Header: 'Date',
+		accessor: 'date'
+	}, {
+		Header: 'Catch Size',
+		accessor: 'catch_size'
+	}, {
+		Header: 'Conditions', // Custom header components!
+		accessor: 'conditions'
+	}, {
+		Header: 'Image', // Custom header components!
+		accessor: 'img'
+	}]
+	
     return (
 
 			<div>
 				
 				{hist.items &&
-					<table style={{"borderWidth":"1px", 'borderStyle':'solid'}}>
+					<ReactTable className="-striped -highlight"
+						data={hist.items}
+						columns={columns}
+						filterable={true}
+					/>
+					/*<table style={{"borderWidth":"1px", 'borderStyle':'solid'}}>
 					<thead>
 						<tr>
 							<th style={{"borderWidth":"1px", 'borderStyle':'solid', 'padding':'5px', 'textAlign':'center'}}>Location</th>
@@ -45,7 +72,7 @@ class HistoryPage extends React.Component {
                             </tr>
                         )}
 					</thead>
-					</table>
+					</table>*/
 				}
 			</div>	
     );

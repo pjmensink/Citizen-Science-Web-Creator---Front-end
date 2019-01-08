@@ -11,7 +11,11 @@ module.exports = {
         extensions: ['.js', '.jsx']
     },
     module: {
-        loaders: [
+        rules: [
+			{
+				test: /\.css$/,
+				use: ['style-loader', 'css-loader']
+			},
             {
                 test: /\.jsx?$/,
                 exclude: /(node_modules|bower_components)/,

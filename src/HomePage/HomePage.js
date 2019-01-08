@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import { userActions } from '../_actions';
 
+import './inputForm.css';
+
 class HomePage extends React.Component {
 	
   componentDidMount() {
@@ -53,7 +55,36 @@ class HomePage extends React.Component {
   render() {
 	const { user, users, hist } = this.props;
     return (
-
+		
+		<div class="form-style-5">
+		<form>
+		<fieldset>
+		<legend><span class="number">1</span> Catch Information</legend>
+		<input name="loc" type="text" placeholder="Catch Location" value={this.state.loc} onChange={this.handleChange} />
+		<input name="size" type="text" placeholder="Catch Size" value={this.state.size} onChange={this.handleChange} />
+		<textarea name="conditions" type="text" placeholder="Weather Conditions" value={this.state.conditions} onChange={this.handleChange}></textarea>
+		<input name="date" type="date" placeholder="Date" value={this.state.date} onChange={this.handleChange} /> 
+		</fieldset>
+		<fieldset>
+		<legend><span class="number">2</span> Image Upload</legend>
+		<div>
+				<input
+					ref={ref => {
+						this.uploadInput = ref;
+					}}
+					type="file"
+					name='photo'
+					onChange={this.handleChange}
+				/>
+			</div>
+			<hr />
+			<p>Uploaded Image:</p>
+			<img style={{"height" : "50px", "width" : "100px"}} src={this.state.imageURL} alt="img" />
+		</fieldset>
+		<input type="submit" value="Submit" style={{"font-weight":"bold", "color":"white"}}/>
+		</form>
+		</div>
+		/*
         <div className="inputForm">
   
           <form onSubmit={this.handleSubmit}>
@@ -98,7 +129,7 @@ class HomePage extends React.Component {
 			
 			</form>
         </div>
-      
+      */
     );
   }
 }

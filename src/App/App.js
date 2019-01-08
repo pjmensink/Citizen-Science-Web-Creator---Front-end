@@ -30,13 +30,13 @@ class App extends React.Component {
                         
                         <Router history={history}>
 							<div>
-								<nav className="navbar navbar-inverse">
+								<nav className="navbar navbar-default">
 								  <ul className="nav navbar-nav">
 									<li><Link to={'/'}> Home </Link></li>
 									<li><Link to={'/history'}>Upload History</Link></li>
 									
 								  </ul>
-								  <ul className="nav navbar-nav navbar-right" style={{"padding-right":"15px"}}>
+								  <ul className="nav navbar-nav navbar-right" style={{"paddingRight":"15px"}}>
 									<li><Link to={'/register'}>Signup</Link></li>
 									<li><Link to={'/login'}>Logout</Link></li>
 								  </ul>

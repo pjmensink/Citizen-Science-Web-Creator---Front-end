@@ -10,14 +10,17 @@
   },
   "dependencies": {
     "ajv": "^6.5.5",
+    "css-loader": "^2.1.0",
     "history": "^4.6.3",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.2",
+    "react-table": "^6.8.6",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "style-loader": "^0.23.1"
   },
   "devDependencies": {
     "babel-core": "^6.21.0",
