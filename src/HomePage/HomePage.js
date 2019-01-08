@@ -56,17 +56,17 @@ class HomePage extends React.Component {
 	const { user, users, hist } = this.props;
     return (
 		
-		<div class="form-style-5">
-		<form>
+		<div className="form-style-5">
+		<form onSubmit={this.handleSubmit}>
 		<fieldset>
-		<legend><span class="number">1</span> Catch Information</legend>
+		<legend><span className="number">1</span> Catch Information</legend>
 		<input name="loc" type="text" placeholder="Catch Location" value={this.state.loc} onChange={this.handleChange} />
 		<input name="size" type="text" placeholder="Catch Size" value={this.state.size} onChange={this.handleChange} />
 		<textarea name="conditions" type="text" placeholder="Weather Conditions" value={this.state.conditions} onChange={this.handleChange}></textarea>
 		<input name="date" type="date" placeholder="Date" value={this.state.date} onChange={this.handleChange} /> 
 		</fieldset>
 		<fieldset>
-		<legend><span class="number">2</span> Image Upload</legend>
+		<legend><span className="number">2</span> Image Upload</legend>
 		<div>
 				<input
 					ref={ref => {
@@ -77,59 +77,13 @@ class HomePage extends React.Component {
 					onChange={this.handleChange}
 				/>
 			</div>
+			<img style={{"height" : "50px", "width" : "100px"}} src={this.state.imageURL} />
 			<hr />
-			<p>Uploaded Image:</p>
-			<img style={{"height" : "50px", "width" : "100px"}} src={this.state.imageURL} alt="img" />
+
 		</fieldset>
-		<input type="submit" value="Submit" style={{"font-weight":"bold", "color":"white"}}/>
+		<input type="submit" value="Submit" style={{"fontWeight":"bold", "color":"white"}}/>
 		</form>
 		</div>
-		/*
-        <div className="inputForm">
-  
-          <form onSubmit={this.handleSubmit}>
-          
-			<label>
-				Location:<br/>
-			<input name="loc" type="text" value={this.state.loc} onChange={this.handleChange} />
-			</label>
-	
-			<br/>
-			<label>
-				Catch Size:<br/>
-				<input name="size" type="text" value={this.state.size} onChange={this.handleChange} />
-			</label><br/>
-			<label>
-				Conditions:<br/>
-				<input name="conditions" type="text" value={this.state.conditions} onChange={this.handleChange} />
-			</label><br/>
-			<label>
-				Date:<br/>
-				<input name="date" type="date" value={this.state.date} onChange={this.handleChange} />
-			</label><br/>
-          
-          <div>
-			
-		  </div>
-          <h1>FileUpload</h1>
-			<div>
-				<input
-					ref={ref => {
-						this.uploadInput = ref;
-					}}
-					type="file"
-					name='photo'
-					onChange={this.handleChange}
-				/>
-			</div>
-			<input type="submit" value="Submit" />
-			<hr />
-			<p>Uploaded Image:</p>
-			<img style={{"height" : "50px", "width" : "100px"}} src={this.state.imageURL} alt="img" />
-			
-			</form>
-        </div>
-      */
     );
   }
 }
