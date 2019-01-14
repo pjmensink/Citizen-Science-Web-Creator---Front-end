@@ -19,7 +19,7 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {loc: '',
-                  size: '',
+                  size: '1',
                   conditions: '',
                   date: '',
                   photo: ''
@@ -61,7 +61,10 @@ class HomePage extends React.Component {
 		<fieldset>
 		<legend><span className="number">1</span> Catch Information</legend>
 		<input name="loc" type="text" placeholder="Catch Location" value={this.state.loc} onChange={this.handleChange} />
-		<input name="size" type="text" placeholder="Catch Size" value={this.state.size} onChange={this.handleChange} />
+		<div className="slidecontainer">
+			<p>Catch Size: {this.state.size}"</p>
+			<input name="size" type="range" min="1" max="60" className="slider" defaultValue="1" id="myRange" onChange={this.handleChange}/>
+		</div>
 		<textarea name="conditions" type="text" placeholder="Weather Conditions" value={this.state.conditions} onChange={this.handleChange}></textarea>
 		<input name="date" type="date" placeholder="Date" value={this.state.date} onChange={this.handleChange} /> 
 		</fieldset>

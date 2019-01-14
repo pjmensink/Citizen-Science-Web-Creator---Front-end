@@ -34,6 +34,7 @@ class App extends React.Component {
 								  <ul className="nav navbar-nav">
 									<li><Link to={'/'}> Home </Link></li>
 									<li><Link to={'/history'}>Upload History</Link></li>
+									<li><Link to={'/gallery'}>Gallery</Link></li>
 									
 								  </ul>
 								  <ul className="nav navbar-nav navbar-right" style={{"paddingRight":"15px"}}>
@@ -48,6 +49,7 @@ class App extends React.Component {
                                 <Route path="/login" component={LoginPage} />
                                 <Route path="/register" component={RegisterPage} />
                                 <Route path="/history" component={HistoryPage} />
+                                <Route path="/gallery" component="" />
                             </div>
                         </Router>
                     </div>
