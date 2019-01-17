@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import { userActions } from '../_actions';
 
+import { GoogleMap } from '../GoogleMap';
+
 import './inputForm.css';
 
 class HomePage extends React.Component {
@@ -22,11 +24,15 @@ class HomePage extends React.Component {
                   size: '1',
                   conditions: '',
                   date: '',
-                  photo: ''
+                  photo: '',
+                  lat: '',
+                  lng: '',
+                  showMap: false
                   };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.chooseLoc = this.chooseLoc.bind(this);
   }
 
   handleChange(event) {
@@ -43,24 +49,42 @@ class HomePage extends React.Component {
 
     this.setState({ submitted: true });
     const loc = this.state.loc;
+    const lat = this.state.lat;
+    const lng = this.state.lng;
     const size = this.state.size;
     const conditions = this.state.conditions;
     const date = this.state.date;
     const imageURL = this.state.photo.split("\\").pop();
     const { dispatch } = this.props;
-    dispatch(userActions.submit(loc, size, conditions, date, imageURL));
+    dispatch(userActions.submit(loc, size, conditions, date, imageURL, lat, lng));
     dispatch(userActions.submitImage(this.uploadInput.files[0], this.state.photo.split("\\").pop().split(".")[0]));
+  }
+  
+  chooseLoc(e) {
+	e.preventDefault();
+	this.setState( {showMap: true} );
+  } 
+  
+  handleClick(latitude, longitude) {
+	this.setState( {showMap: false} );
+	this.setState( {lat: latitude} );
+	this.setState( {lng: longitude} );
   }
   
   render() {
 	const { user, users, hist } = this.props;
     return (
-		
+		<div>
+		<div>
+			 { this.state.showMap ? <GoogleMap handleClick={this.handleClick.bind(this)} center={{lat: 42, lng: -81}} zoom={11}/> : null }
+		</div>
 		<div className="form-style-5">
+		
 		<form onSubmit={this.handleSubmit}>
 		<fieldset>
 		<legend><span className="number">1</span> Catch Information</legend>
-		<input name="loc" type="text" placeholder="Catch Location" value={this.state.loc} onChange={this.handleChange} />
+		<input style={{"width":"70%","marginRight":"5px" }}name="loc" type="text" placeholder="Catch Location" value={this.state.loc} onChange={this.handleChange} />
+		<button style={{"height":"30px","fontWeight":"bold","color":"white","background":"rgb(26, 188, 156)"}}type="button" onClick={this.chooseLoc}>Select Location</button>
 		<div className="slidecontainer">
 			<p>Catch Size: {this.state.size}"</p>
 			<input name="size" type="range" min="1" max="60" className="slider" defaultValue="1" id="myRange" onChange={this.handleChange}/>
@@ -86,6 +110,7 @@ class HomePage extends React.Component {
 		</fieldset>
 		<input type="submit" value="Submit" style={{"fontWeight":"bold", "color":"white"}}/>
 		</form>
+		</div>
 		</div>
     );
   }
