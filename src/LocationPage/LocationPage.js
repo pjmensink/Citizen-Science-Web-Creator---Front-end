@@ -4,11 +4,9 @@ import { connect } from 'react-redux';
 
 import { userActions } from '../_actions';
 
-import ReactTable from "react-table";
+import { GoogleMap } from '../GoogleMap';
 
-import 'react-table/react-table.css'
-
-class HistoryPage extends React.Component {
+class LocationPage extends React.Component {
 	
   componentDidMount() {
         this.props.dispatch(userActions.getAll());
@@ -25,34 +23,11 @@ class HistoryPage extends React.Component {
   
   render() {
 	const { user, users, hist } = this.props;
-
-	const columns = [{
-		Header: 'Location',
-		accessor: 'location' 
-	}, {
-		Header: 'Date',
-		accessor: 'date'
-	}, {
-		Header: 'Catch Size',
-		accessor: 'catch_size'
-	}, {
-		Header: 'Conditions', // Custom header components!
-		accessor: 'conditions'
-	}, {
-		Header: 'Image', // Custom header components!
-		accessor: 'img'
-	}]
 	
     return (
 
 			<div>
-				{hist.items &&
-					<ReactTable className="-striped -highlight"
-						data={hist.items}
-						columns={columns}
-						filterable={true}
-					/>
-				}
+				<GoogleMap data={hist.items} center={{lat: 42, lng: -81}} zoom={5}/> 
 			</div>	
     );
   }
@@ -68,5 +43,5 @@ function mapStateToProps(state) {
     };
 }
 
-const connectedHistoryPage = connect(mapStateToProps)(HistoryPage);
-export { connectedHistoryPage as HistoryPage };
+const connectedLocationPage = connect(mapStateToProps)(LocationPage);
+export { connectedLocationPage as LocationPage };

@@ -9,6 +9,8 @@ import { HomePage } from '../HomePage';
 import { LoginPage } from '../LoginPage';
 import { RegisterPage } from '../RegisterPage';
 import { HistoryPage } from '../HistoryPage';
+import { LocationPage } from '../LocationPage';
+import { GalleryPage } from '../GalleryPage';
 
 class App extends React.Component {
     constructor(props) {
@@ -34,6 +36,7 @@ class App extends React.Component {
 								  <ul className="nav navbar-nav">
 									<li><Link to={'/'}> Home </Link></li>
 									<li><Link to={'/history'}>Upload History</Link></li>
+									<li><Link to={'/locations'}>Location History</Link></li>
 									<li><Link to={'/gallery'}>Gallery</Link></li>
 									
 								  </ul>
@@ -49,7 +52,8 @@ class App extends React.Component {
                                 <Route path="/login" component={LoginPage} />
                                 <Route path="/register" component={RegisterPage} />
                                 <Route path="/history" component={HistoryPage} />
-                                <Route path="/gallery" component="" />
+                                <Route path="/locations" component={LocationPage} />
+                                <Route path="/gallery" component={GalleryPage} />
                             </div>
                         </Router>
                     </div>
