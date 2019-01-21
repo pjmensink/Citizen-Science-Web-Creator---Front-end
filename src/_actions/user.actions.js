@@ -97,9 +97,9 @@ function _delete(id) {
     function failure(id, error) { return { type: userConstants.DELETE_FAILURE, id, error } }
 }
 
-function submit(id, loc, size, conditions, date, imageURL, lat, lng) {
+function submit(id, loc, size, conditions, date, imageURL, lat, lng, species, common) {
     return dispatch => {
-        userService.saveData(id, loc, size, conditions, date, imageURL, lat, lng)
+        userService.saveData(id, loc, size, conditions, date, imageURL, lat, lng, species, common)
             .then(
                 response => { 
                     dispatch(alertActions.success('Submitted Data'));

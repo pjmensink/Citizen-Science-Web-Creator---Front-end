@@ -105,13 +105,13 @@ function handleResponse(response) {
     });
 }
 
-function saveData(location, catch_size, conditions, date, imageURL, latitude, longitude) {
+function saveData(location, catch_size, conditions, date, imageURL, latitude, longitude, species, common) {
 	const user = localStorage.getItem('user');
 	const userId = JSON.parse(user)._id
 	const requestOptions = {
         method: 'POST',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId, location, catch_size, conditions, date, imageURL, latitude, longitude })
+        body: JSON.stringify({ userId, location, catch_size, conditions, date, imageURL, latitude, longitude, species, common })
     };
     return fetch(`${config.apiUrl}/fishdata/submit`, requestOptions).then(handleResponse);
 }

@@ -27,6 +27,8 @@ class HomePage extends React.Component {
                   photo: '',
                   lat: '',
                   lng: '',
+                  species: '',
+                  common: '',
                   showMap: false
                   };
 
@@ -51,12 +53,14 @@ class HomePage extends React.Component {
     const loc = this.state.loc;
     const lat = this.state.lat;
     const lng = this.state.lng;
+    const species = this.state.species;
+    const common = this.state.common;
     const size = this.state.size;
     const conditions = this.state.conditions;
     const date = this.state.date;
     const imageURL = this.state.photo.split("\\").pop();
     const { dispatch } = this.props;
-    dispatch(userActions.submit(loc, size, conditions, date, imageURL, lat, lng));
+    dispatch(userActions.submit(loc, size, conditions, date, imageURL, lat, lng, species, common));
     dispatch(userActions.submitImage(this.uploadInput.files[0], this.state.photo.split("\\").pop().split(".")[0]));
   }
   
@@ -85,6 +89,10 @@ class HomePage extends React.Component {
 		<legend><span className="number">1</span> Catch Information</legend>
 		<input style={{"width":"70%","marginRight":"5px" }}name="loc" type="text" placeholder="Catch Location" value={this.state.loc} onChange={this.handleChange} />
 		<button style={{"height":"30px","fontWeight":"bold","color":"white","background":"rgb(26, 188, 156)"}}type="button" onClick={this.chooseLoc}>Select Location</button>
+		<div>
+		<input style={{"width":"49%","marginRight":"5px" }}name="species" type="text" placeholder="Species Name" value={this.state.species} onChange={this.handleChange} />
+		<input style={{"width":"49%" }}name="common" type="text" placeholder="Common Name" value={this.state.common} onChange={this.handleChange} />
+		</div>
 		<div className="slidecontainer">
 			<p>Catch Size: {this.state.size}"</p>
 			<input name="size" type="range" min="1" max="60" className="slider" defaultValue="1" id="myRange" onChange={this.handleChange}/>
