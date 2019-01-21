@@ -11,6 +11,7 @@ export const userService = {
     saveData,
     saveImage,
     getUsersData,
+    getImages,
     delete: _delete
 };
 
@@ -141,4 +142,34 @@ function getUsersData() {
     };
     
     return fetch(`${config.apiUrl}/fishdata/getAll`, requestOptions).then(handleResponse);
+}
+
+function getImages() {
+	const user = localStorage.getItem('user');
+	const userId = JSON.parse(user)._id
+	
+	const requestOptions = {
+        method: 'GET',
+        headers: { ...authHeader()},
+    };
+    
+    return fetch(`${config.apiUrl}/fish.jpg`, requestOptions).then(handleImageResponse);
+}
+
+function handleImageResponse(response) {
+    return response.blob().then(blob => {
+        var data = URL.createObjectURL(blob);
+        if (!response.ok) {
+            if (response.status === 401) {
+                // auto logout if 401 response returned from api
+                logout();
+                window.location.reload(true);
+            }
+
+            const error = (data && data.message) || response.statusText;
+            return Promise.reject(error);
+        }
+
+        return data;
+    });
 }

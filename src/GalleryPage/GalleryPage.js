@@ -7,8 +7,8 @@ import { userActions } from '../_actions';
 class GalleryPage extends React.Component {
 	
   componentDidMount() {
-        this.props.dispatch(userActions.getAll());
         this.props.dispatch(userActions.getHistory());
+        this.props.dispatch(userActions.getImages());
   }
   
   handleDeleteUser(id) {
@@ -20,24 +20,25 @@ class GalleryPage extends React.Component {
   }
   
   render() {
-	const { user, users, hist } = this.props;
-	
+	const { user, users, hist, images } = this.props;
+
     return (
 
 			<div>
-	
+				<img src={images.items} style={{"height" : "50px", "width" : "100px"}}/>
 			</div>	
     );
   }
 }
 
 function mapStateToProps(state) {
-    const { hist, users, authentication } = state;
+    const { hist, images, users, authentication } = state;
     const { user } = authentication;
     return {
         user,
         users,
-        hist
+        hist,
+        images
     };
 }
 
