@@ -24,6 +24,7 @@ class App extends React.Component {
 
     render() {
         const { alert } = this.props;
+        const loggedIn = localStorage.getItem('user');
         return (
             <div>
                 <div>
@@ -33,15 +34,16 @@ class App extends React.Component {
 							<div>
 								<nav className="navbar navbar-default">
 								  <ul className="nav navbar-nav">
-									<li><Link to={'/'}> Home </Link></li>
-									<li><Link to={'/history'}>Upload History</Link></li>
-									<li><Link to={'/locations'}>Location History</Link></li>
-									<li><Link to={'/gallery'}>Gallery</Link></li>
+									{loggedIn&&<li><Link to={'/'}> Home </Link></li>}
+									{loggedIn&&<li><Link to={'/history'}>Upload History</Link></li>}
+									{loggedIn&&<li><Link to={'/locations'}>Location History</Link></li>}
+									{loggedIn&&<li><Link to={'/gallery'}>Gallery</Link></li>}
 									
 								  </ul>
 								  <ul className="nav navbar-nav navbar-right" style={{"paddingRight":"15px"}}>
 									<li><Link to={'/register'}>Signup</Link></li>
-									<li><Link to={'/login'}>Logout</Link></li>
+									{loggedIn&&<li><Link to={'/login'}>Logout</Link></li>}
+									{!loggedIn&&<li><Link to={'/login'}>Login</Link></li>}
 								  </ul>
 								</nav>
 								{alert.message &&

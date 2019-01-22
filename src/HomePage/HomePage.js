@@ -10,10 +10,6 @@ import './inputForm.css'; //Stylesheet for the data input form
 
 class HomePage extends React.Component {
 	
-	componentDidMount() {
-		this.props.dispatch(userActions.getAll()); // Retreive all actions available to a user
-	}
-  
 	handleDeleteUser(id) {
 		return (e) => this.props.dispatch(userActions.delete(id));
 	}
