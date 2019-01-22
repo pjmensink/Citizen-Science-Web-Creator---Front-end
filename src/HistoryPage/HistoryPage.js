@@ -30,16 +30,28 @@ class HistoryPage extends React.Component {
 		Header: 'Location',
 		accessor: 'location' 
 	}, {
+		Header: 'Latitude',
+		accessor: 'latitude'
+	}, {
+		Header: 'Longitude',
+		accessor: 'longitude'
+	}, {
 		Header: 'Date',
 		accessor: 'date'
+	}, {
+		Header: 'Species',
+		accessor: 'species'
+	}, {
+		Header: 'Common Name',
+		accessor: 'common'
 	}, {
 		Header: 'Catch Size',
 		accessor: 'catch_size'
 	}, {
-		Header: 'Conditions', // Custom header components!
+		Header: 'Conditions', 
 		accessor: 'conditions'
 	}, {
-		Header: 'Image', // Custom header components!
+		Header: 'Image', 
 		accessor: 'img'
 	}]
 	

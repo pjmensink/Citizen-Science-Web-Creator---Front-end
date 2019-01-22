@@ -63,7 +63,7 @@ class HomePage extends React.Component {
 		const lng = this.state.lng;
 		const species = this.state.species;
 		const common = this.state.common;
-		const size = this.state.size;
+		const size = this.state.size + "\"";
 		const conditions = this.state.conditions;
 		const date = this.state.date;
 		const imageURL = this.state.photo.split("\\").pop(); // Retrive just file name
@@ -91,7 +91,7 @@ class HomePage extends React.Component {
 		return (
 			<div>
 				<div>
-					{ this.state.showMap ? <GoogleMap handleClick={this.handleClick.bind(this)} center={{lat: 42, lng: -81}} zoom={11}/> : null }
+					{ this.state.showMap ? <GoogleMap handleClick={this.handleClick.bind(this)} center={{lat: 42, lng: -81}} zoom={3}/> : null }
 				</div>
 				<div className="form-style-5">
 
