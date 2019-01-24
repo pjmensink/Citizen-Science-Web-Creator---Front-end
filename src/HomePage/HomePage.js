@@ -5,8 +5,10 @@ import { connect } from 'react-redux';
 import { userActions } from '../_actions';
 
 import { GoogleMap } from '../GoogleMap';
+import { Modal } from '../Modal';
 
 import './inputForm.css'; //Stylesheet for the data input form
+import './modal.css'; //Stylesheet for the modal window
 
 class HomePage extends React.Component {
 	
@@ -34,6 +36,7 @@ class HomePage extends React.Component {
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.chooseLoc = this.chooseLoc.bind(this);
+		this.closeModal = this.closeModal.bind(this);
 	}
 	
 	// Handle user input into all form inputs
@@ -81,14 +84,18 @@ class HomePage extends React.Component {
 		this.setState( {lat: latitude} );
 		this.setState( {lng: longitude} );
 	}
-  
+	
+	closeModal() {
+		this.setState( {showMap: false} ); // Close modal
+	}
+	
 	render() {
 		const { user, users, hist } = this.props;
 		return (
 			<div>
-				<div>
-					{ this.state.showMap ? <GoogleMap handleClick={this.handleClick.bind(this)} center={{lat: 42, lng: -81}} zoom={3}/> : null }
-				</div>
+				<Modal show={this.state.showMap} handleClose={this.closeModal.bind(this)}>
+					<GoogleMap size={{ height: '80%', width: '100%' }} handleClick={this.handleClick.bind(this)} center={{lat: 42, lng: -81}} zoom={3}/> 
+				</Modal>
 				<div className="form-style-5">
 
 					<form onSubmit={this.handleSubmit}>

@@ -26,12 +26,9 @@ class GoogleMap extends React.Component {
   
   constructor(props) {
     super(props);
-
+	
     this._onClick = this._onClick.bind(this);
     this.createMarkers = this.createMarkers.bind(this);
-  }
-  componentDidMount() {
-        this.props.dispatch(userActions.getAll());
   }
 
   _onClick({x, y, lat, lng, event}) {
@@ -58,7 +55,7 @@ class GoogleMap extends React.Component {
   render() {
 
     return (
-      <div style={{ height: '100vh', width: '100%' }}>
+      <div style={this.props.size}>
         <GoogleMapReact
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}

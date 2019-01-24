@@ -9,7 +9,6 @@ import { GoogleMap } from '../GoogleMap';
 class LocationPage extends React.Component {
 	
   componentDidMount() {
-        this.props.dispatch(userActions.getAll());
         this.props.dispatch(userActions.getHistory());
   }
   
@@ -27,7 +26,7 @@ class LocationPage extends React.Component {
     return (
 
 			<div>
-				<GoogleMap data={hist.items} center={{lat: 42, lng: -81}} zoom={5}/> 
+				<GoogleMap size={{ height: '100vh', width: '100%' }} data={hist.items} center={{lat: 42, lng: -81}} zoom={5}/> 
 			</div>	
     );
   }
