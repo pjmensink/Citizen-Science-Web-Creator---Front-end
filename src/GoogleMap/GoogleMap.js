@@ -6,7 +6,7 @@ import { userActions } from '../_actions';
 
 import GoogleMapReact from 'google-map-react';
 
-const AnyReactComponent = ({ text }) => (
+const Marker = ({ text }) => (
   <div style={{
     color: 'white', 
     background: 'red',
@@ -29,11 +29,17 @@ class GoogleMap extends React.Component {
 	
     this._onClick = this._onClick.bind(this);
     this.createMarkers = this.createMarkers.bind(this);
+    this.childClick = this.childClick.bind(this);
   }
 
   _onClick({x, y, lat, lng, event}) {
 	  console.log(x, y, lat, lng, event);
-	  this.props.handleClick(lat, lng);
+	  if (this.props.handleClick)
+		this.props.handleClick(lat, lng);
+  }
+  
+  childClick(event, data) {
+	console.log(data);
   }
   
   createMarkers(data) {
@@ -41,11 +47,12 @@ class GoogleMap extends React.Component {
 	var arrLen = data.length;
 	for(var i = 0 ; i < arrLen ; i ++) {
 		if(data[i]['latitude']){
-			markers.push(<AnyReactComponent 
+			markers.push(<Marker 
 			  lat={data[i]['latitude']} 
 			  lng={data[i]['longitude']} 
 			  text={'!'} 
 			  key={i}
+			  data={data[i]}
 			/>
 			);
 		}
@@ -60,6 +67,7 @@ class GoogleMap extends React.Component {
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
           onClick={this._onClick}
+          onChildClick={this.childClick}
         >
         { this.props.data ? this.createMarkers(this.props.data) : null }
         </GoogleMapReact>
