@@ -5,16 +5,13 @@ import { connect } from 'react-redux';
 import { userActions } from '../_actions';
 
 import { GoogleMap } from '../GoogleMap';
+import { DynamicForm } from '../DynamicForm';
 import { Modal } from '../Modal';
 
 import './inputForm.css'; //Stylesheet for the data input form
 import './modal.css'; //Stylesheet for the modal window
 
 class HomePage extends React.Component {
-	
-	handleDeleteUser(id) {
-		return (e) => this.props.dispatch(userActions.delete(id));
-	}
   
 	constructor(props) {
 		super(props);
@@ -88,12 +85,14 @@ class HomePage extends React.Component {
 	closeModal() {
 		this.setState( {showMap: false} ); // Close modal
 	}
-	
+	onSubmit(model){
+		console.log(model);
+	}
 	render() {
 		const { user, users, hist } = this.props;
 		return (
 			<div>
-				<Modal show={this.state.showMap} handleClose={this.closeModal.bind(this)}>
+				{/*}<Modal show={this.state.showMap} handleClose={this.closeModal.bind(this)}>
 					<GoogleMap size={{ height: '80%', width: '100%' }} handleClick={this.handleClick.bind(this)} center={{lat: 42, lng: -81}} zoom={3}/> 
 				</Modal>
 				<div className="form-style-5">
@@ -131,7 +130,17 @@ class HomePage extends React.Component {
 						</fieldset>
 						<input type="submit" value="Submit" style={{"fontWeight":"bold", "color":"white"}}/>
 					</form>
-				</div>
+				</div>{*/}
+				<DynamicForm className="form"
+				  title = "Fish Data"
+				  model={[
+					{key: "loc", label: "Location", name: "loc"},
+					{key: "species",label: "Species Name", name: "species"},
+					{key: "common",label: "Common Name", name: "common"},
+					{key: "date",label: "Date", name: "date"}
+				  ]}
+				  onSubmit = {(model) => {this.onSubmit(model)}} 
+				/>
 			</div>
 		);
 	}
