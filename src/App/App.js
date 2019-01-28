@@ -1,5 +1,6 @@
 import React from 'react';
 import { Router, Route, Link } from 'react-router-dom';
+import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 
 import { history } from '../_helpers';
@@ -34,7 +35,7 @@ class App extends React.Component {
 							<div>
 								<nav className="navbar navbar-default">
 								  <ul className="nav navbar-nav">
-									{loggedIn&&<li><Link to={'/'}> Home </Link></li>}
+									{loggedIn&&<li><Link to={'/home'}> Home </Link></li>}
 									{loggedIn&&<li><Link to={'/history'}>Upload History</Link></li>}
 									{loggedIn&&<li><Link to={'/locations'}>Location History</Link></li>}
 									{loggedIn&&<li><Link to={'/gallery'}>Gallery</Link></li>}
@@ -49,7 +50,14 @@ class App extends React.Component {
 								{alert.message &&
 									<div className={`alert ${alert.type}`}>{alert.message}</div>
 								}
-                                <Route exact path="/" component={HomePage} />
+								<Route exact path="/" render={() => (
+								  loggedIn ? (
+									<Redirect to="/home"/>
+								  ) : (
+									<Redirect to="/login"/>
+								  )
+								)}/>
+                                <Route path="/home" component={HomePage} />
                                 <Route path="/login" component={LoginPage} />
                                 <Route path="/register" component={RegisterPage} />
                                 <Route path="/history" component={HistoryPage} />
