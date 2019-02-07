@@ -8,6 +8,8 @@ import { GoogleMap } from '../GoogleMap';
 import { DynamicForm } from '../DynamicForm';
 import { Modal } from '../Modal';
 
+import formData from './data.json';
+
 import './inputForm.css'; //Stylesheet for the data input form
 import './modal.css'; //Stylesheet for the modal window
 
@@ -15,7 +17,6 @@ class HomePage extends React.Component {
   
 	constructor(props) {
 		super(props);
-		
 		// State contains data to be submitted
 		this.state = {
 						loc: '',
@@ -90,6 +91,7 @@ class HomePage extends React.Component {
 	}
 	render() {
 		const { user, users, hist } = this.props;
+		console.log(formData);
 		return (
 			<div>
 				{/*}<Modal show={this.state.showMap} handleClose={this.closeModal.bind(this)}>
@@ -133,12 +135,9 @@ class HomePage extends React.Component {
 				</div>{*/}
 				<DynamicForm className="form"
 				  title = "Fish Data"
-				  model={[
-					{key: "loc", label: "Location", name: "loc"},
-					{key: "species",label: "Species Name", name: "species"},
-					{key: "common",label: "Common Name", name: "common"},
-					{key: "date",label: "Date", name: "date"}
-				  ]}
+				  model={
+					formData
+				  }
 				  onSubmit = {(model) => {this.onSubmit(model)}} 
 				/>
 			</div>
