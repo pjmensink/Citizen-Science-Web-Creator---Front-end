@@ -29,10 +29,11 @@ class Application(Frame):
 		Popen(["mongoexport -h ds143143.mlab.com:43143 -d ocean-eyes -c fishdata -u admin -p admin22 -o ./fishdata.csv --type=csv -f 'userId,location,conditions,date,catch_size'"], shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
 		
 	# Create a new input 
-	def addBox(self, text=""):
-		print ("Added Input")
+	def addBox(self, textString=""):
+		print(textString)
 		index = len(self.all_entries)
 		ent = Entry(self.window)
+		ent.insert(END, textString)
 		ent.pack(side="top")
 		self.all_entries.append( ent )
 		remove = Button(self.window, text='X', fg="Red", command=lambda i=index: self.removeBox(i))
@@ -41,7 +42,6 @@ class Application(Frame):
 	
 	# Remove input box at index i in the list of inputs	
 	def removeBox(self, i):
-		print ("Removed Input")
 		item = self.all_entries[i]
 		item.destroy()
 		del self.all_entries[i]
