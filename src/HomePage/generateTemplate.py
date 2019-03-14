@@ -8,45 +8,54 @@ class Application(Frame):
 	
 	def __init__(self, master=None):
 		Frame.__init__(self, master)
-		self.all_entries = []
-		self.p = None
+		self.all_entries = []			# Maintain a list of all inputs for the ui
+		self.all_deletes = []			# Maintain a list of all deletes for the ui
+		self.p = None					# When localhost is started, keep track of that process so it can be killed later
 		self.pack()
 		self.createWidgets()
-		self.window = None
-		
+		self.window = None				# 2nd window for ui editing
+	
+	# When the ui is being edited, show the current state of the ui before editing begins, get state from the data.json file
 	def restoreState(self):
-		if os.path.getsize("./data.json") > 0:
+		if os.path.getsize("./data.json") > 2:			# If there are no inputs in the file, the file contains an empty array [] which has size 2
 			with open('data.json', 'r') as infile:
 				json_array = json.load(infile)
 				for item in json_array:
 					self.addBox(item['name'])
-		
+	
+	# Save contents of the database to a csv file
 	def databaseDump(self):
 		from subprocess import Popen
 		Popen(["mongoexport -h ds143143.mlab.com:43143 -d ocean-eyes -c fishdata -u admin -p admin22 -o ./fishdata.csv --type=csv -f 'userId,location,conditions,date,catch_size'"], shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
 		
+	# Create a new input 
 	def addBox(self, text=""):
 		print ("Added Input")
 		index = len(self.all_entries)
-		entryName = "entry"+str(index)
-		deleteName = "del"+str(index)
-		ent = Entry(self.window, name=entryName)
+		ent = Entry(self.window)
 		ent.pack(side="top")
 		self.all_entries.append( ent )
-		remove = Button(self.window, text='X', name=deleteName, fg="Red", command=lambda i=index: self.removeBox(i))
+		remove = Button(self.window, text='X', fg="Red", command=lambda i=index: self.removeBox(i))
 		remove.pack(side="top")
-		
+		self.all_deletes.append( remove )
+	
+	# Remove input box at index i in the list of inputs	
 	def removeBox(self, i):
 		print ("Removed Input")
-		ent = self.all_entries[i]
-		item = root.nametowidget(ent)
-		print(item)
-		item.destroy
-		del self.all_entries[i-1]
+		item = self.all_entries[i]
+		item.destroy()
+		del self.all_entries[i]
 		
-		item = root.nametowidget("del"+str(i))
-		item.destroy
+		item = self.all_deletes[i]
+		item.destroy()
+		del self.all_deletes[i]
+		
+		for index in range(len(self.all_deletes)):
+			print (self.all_deletes[index])
+			self.all_deletes[index].configure(command=lambda x=index: self.removeBox(x))
+			
 	
+	# Test if localhost port is in use
 	def tryPort(self, port):
 		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		result = False
@@ -58,6 +67,7 @@ class Application(Frame):
 		sock.close()
 		return result
     
+    # Save generated inputs to file
 	def createInputs(self):
 		with open('data.json', 'w') as outfile:
 			inputs = []
@@ -67,6 +77,7 @@ class Application(Frame):
 				inputs.append(data)
 			json.dump(inputs, outfile)
 	
+	# Upload all files in path to a remote server
 	def uploadToServer(self):
 		username = "nfallowf"
 		password = "h7Y65thUp0"
@@ -83,20 +94,30 @@ class Application(Frame):
 
 			sftp.put_r('../../src/', "/student/nfallowf/thesis/my-app")
 			print('Upload finished')
-			
+	
+	# Start node project on localhost:8080 if available
 	def startLocalhost(self):
 		if self.tryPort(8080):
 			print ("Starting dev server")
 			from subprocess import Popen
 			self.p = Popen(["npm start"], shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
 			
+	# Close program, kill anything running on localhost
 	def quit(self):
 		if self.p is not None:
 			os.killpg(os.getpgid(self.p.pid), signal.SIGTERM)
 		root.destroy()
 	
+	# Remove the list of entries when editting window closed, so there aren't duplicates when re opened
+	def onWindowClose(self):
+		del self.all_entries[:]
+		del self.all_deletes[:]
+		self.window.destroy()
+		
+	# Edit the ui
 	def makeEdits(self):
 		self.window = Toplevel(root)
+		self.window.protocol("WM_DELETE_WINDOW", self.onWindowClose)
 		self.refresh_server = Button(self.window)
 		
 		self.refresh_server["text"] = "Refresh localhost"
@@ -109,7 +130,7 @@ class Application(Frame):
 		
 		self.restoreState()
 		
-		
+	# Generate all widgets used on the ui
 	def createWidgets(self):
 		
 		self.upload = Button(self)
