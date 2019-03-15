@@ -11,6 +11,7 @@ import { RegisterPage } from '../RegisterPage';
 import { HistoryPage } from '../HistoryPage';
 import { LocationPage } from '../LocationPage';
 import { GalleryPage } from '../GalleryPage';
+import { DataPage } from '../DataPage';
 
 class App extends React.Component {
     constructor(props) {
@@ -37,6 +38,7 @@ class App extends React.Component {
 								  <ul className="nav navbar-nav">
 									{loggedIn&&<li><Link to={'/home'}> Home </Link></li>}
 									{loggedIn&&<li><Link to={'/history'}>Upload History</Link></li>}
+									{loggedIn&&<li><Link to={'/data'}>All Data</Link></li>}
 									{loggedIn&&<li><Link to={'/locations'}>Location History</Link></li>}
 									{loggedIn&&<li><Link to={'/gallery'}>Gallery</Link></li>}
 									
@@ -63,6 +65,7 @@ class App extends React.Component {
                                 <Route path="/history" component={HistoryPage} />
                                 <Route path="/locations" component={LocationPage} />
                                 <Route path="/gallery" component={GalleryPage} />
+                                <Route path="/data" component={DataPage} />
                             </div>
                         </Router>
                     </div>
