@@ -41,12 +41,14 @@ class DynamicForm extends React.Component {
             let props = m.props || {};
             let name= m.name;
             let value = m.value;
+            let className = m.className || "form-input";
+            let groupName = m.groupName || "form-group";
 
             let target = key;  
             value = this.state[target];
 
             let input =  <input {...props}
-                    className="form-input"
+                    className={className}
                     type={type}
                     key={key}
                     name={name}
@@ -122,7 +124,7 @@ class DynamicForm extends React.Component {
              }
             
             return (
-                <div key={'g' + key} className="form-group">
+                <div key={'g' + key} className={groupName}>
                     <label className="form-label"
                         key={"l" + key}
                         htmlFor={key}>

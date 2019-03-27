@@ -9,6 +9,7 @@ import { DynamicForm } from '../DynamicForm';
 import { Modal } from '../Modal';
 
 import formData from './data.json';
+import styleData from './styles.json';
 
 import './inputForm.css'; //Stylesheet for the data input form
 import './modal.css'; //Stylesheet for the modal window
@@ -138,6 +139,7 @@ class HomePage extends React.Component {
 				  model={
 					formData
 				  }
+				  className={styleData["style"]}
 				  onSubmit = {(model) => {this.onSubmit(model)}} 
 				/>
 			</div>
