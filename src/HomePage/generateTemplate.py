@@ -22,6 +22,10 @@ class Application(Frame):
 		self.rangeMin = 0				# Min value for slider
 		self.rangeMax = 100				# Max value for slider
 		self.rangeLab = "" 				# Label For the Slider
+		
+		self.optionsWindow = None		# Window for options input
+		self.optionEntries = []			# List of options entry boxes
+		self.options = []				# List of options
 	
 	# When the ui is being edited, show the current state of the ui before editing begins, get state from the data.json file
 	def restoreState(self):
@@ -40,27 +44,48 @@ class Application(Frame):
 	def restoreBox(self, item):
 		inputName = item['label']
 		thisType = item['type']
+		options = []
 		if thisType == "":
 			inputType = ""
 			className = ""
 			ent = Entry(self.window)
 			ent.insert(END, inputName)
+		elif thisType == "time":
+			inputType = "time"
+			className = ""
+			ent = Entry(self.window)
+			ent.insert(END, "time")
+			ent.config(state=DISABLED)
+		elif thisType == "date":
+			inputType = "date"
+			className = ""
+			ent = Entry(self.window)
+			ent.insert(END, "date")
+			ent.config(state=DISABLED)
 		elif thisType == "range":
 			inputType = "range"
 			className = "slider"
 			ent = Scale(self.window, orient=HORIZONTAL, from_=item['min'], to=item['max'])
-		elif thisType == "DropDown":
+		elif thisType == "select":
 			inputType = "select"
 			className = ""
-			ent = OptionMenu(self.window, "", "")
-		elif thisType == "Radio Button":
+			for option in item['options']:
+				options.append(option['value'])
+			variable = StringVar(self.window)
+			variable.set(options[0]) # default value
+			ent = OptionMenu(self.window, variable, *options)
+		elif thisType == "radio":
 			inputType = "radio"
 			className = ""
-			ent = Radiobutton(self.window)
-		elif thisType == "Checkbox":
+			for option in item['options']:
+				options.append(option['value'])
+			ent = Radiobutton(self.window, text="Radio Button Group")
+		elif thisType == "checkbox":
 			inputType = "checkbox"
 			className = ""
-			ent = Checkbutton(self.window)
+			for option in item['options']:
+				options.append(option['value'])
+			ent = Checkbutton(self.window, text="Check Button Group")
 		elif thisType == "Image Upload":
 			inputType = ""
 			className = ""
@@ -77,7 +102,7 @@ class Application(Frame):
 			
 		index = len(self.all_entries)
 		ent.pack(side="top")
-		self.all_entries.append( (ent, inputType, className, item['min'],item['max'], inputName) )
+		self.all_entries.append( (ent, inputType, className, item['min'],item['max'], inputName, options) )
 		remove = Button(self.window, text='X', fg="Red", command=lambda i=index: self.removeBox(i))
 		remove.pack(side="top")
 		self.all_deletes.append( remove )
@@ -91,6 +116,18 @@ class Application(Frame):
 			className = ""
 			ent = Entry(self.window)
 			ent.insert(END, textString)
+		elif thisType == "Time Input":
+			inputType = "time"
+			className = ""
+			ent = Entry(self.window)
+			ent.insert(END, "Time")
+			ent.config(state=DISABLED)
+		elif thisType == "Date Input":
+			inputType = "date"
+			className = ""
+			ent = Entry(self.window)
+			ent.insert(END, "Date")
+			ent.config(state=DISABLED)
 		elif thisType == "Slider":
 			self.rangeWindow = Toplevel()
 			self.setRange()
@@ -100,17 +137,30 @@ class Application(Frame):
 			inputName = self.rangeLab
 			ent = Scale(self.window, orient=HORIZONTAL, from_=self.rangeMin, to=self.rangeMax)
 		elif thisType == "DropDown":
+			self.optionsWindow = Toplevel()
+			self.setOptions()
+			root.wait_window(self.optionsWindow)
 			inputType = "select"
 			className = ""
-			ent = OptionMenu(self.window, "", "")
+			variable = StringVar(self.window)
+			variable.set(self.options[0]) # default value
+			ent = OptionMenu(self.window, variable, *self.options)
 		elif thisType == "Radio Button":
+			self.optionsWindow = Toplevel()
+			self.setOptions()
+			root.wait_window(self.optionsWindow)
 			inputType = "radio"
 			className = ""
-			ent = Radiobutton(self.window)
+			ent = Radiobutton(self.window, text="Radio Button Group")
+			ent.pack(side="top")
 		elif thisType == "Checkbox":
+			self.optionsWindow = Toplevel()
+			self.setOptions()
+			root.wait_window(self.optionsWindow)
 			inputType = "checkbox"
 			className = ""
-			ent = Checkbutton(self.window)
+			ent = Checkbutton(self.window, text="Check Button Group")
+			ent.pack(side="top")
 		elif thisType == "Image Upload":
 			inputType = ""
 			className = ""
@@ -127,7 +177,8 @@ class Application(Frame):
 			
 		index = len(self.all_entries)
 		ent.pack(side="top")
-		self.all_entries.append( (ent, inputType, className, self.rangeMin, self.rangeMax, inputName) )
+		options = self.options.copy()
+		self.all_entries.append( (ent, inputType, className, self.rangeMin, self.rangeMax, inputName, options) )
 		remove = Button(self.window, text='X', fg="Red", command=lambda i=index: self.removeBox(i))
 		remove.pack(side="top")
 		self.all_deletes.append( remove )
@@ -163,11 +214,15 @@ class Application(Frame):
 		with open('data.json', 'w') as outfile:
 			inputs = []
 			for number, ent in enumerate(self.all_entries):
+				options = []
 				if ( isinstance(ent[0], Entry)):
 					inputName = ent[0].get()
 				else:
 					inputName = ent[5]
-				data = ({'key': number, 'label': inputName, 'name': inputName, 'type': ent[1], 'className': ent[2], 'min': ent[3], 'max': ent[4]})
+				if ( isinstance(ent[0], OptionMenu) or isinstance(ent[0], Radiobutton) or isinstance(ent[0], Checkbutton)):
+					for key, item in enumerate(ent[6]):
+						options.append({"value":item, "label":item, "key": key})
+				data = ({'key': number, 'label': inputName, 'name': inputName, 'type': ent[1], 'className': ent[2], 'min': ent[3], 'max': ent[4], 'options': options})
 				inputs.append(data)
 			json.dump(inputs, outfile)
 	
@@ -222,7 +277,7 @@ class Application(Frame):
 		self.inputType = StringVar(self.window)
 		self.inputType.set("Text Input") # default value
 
-		self.inputSelect = OptionMenu(self.window, self.inputType, "Text Input", "Slider", "DropDown", "Radio Button", "Checkbox", "Image Upload", "Location Input")
+		self.inputSelect = OptionMenu(self.window, self.inputType, "Text Input", "Time Input", "Date Input", "Slider", "DropDown", "Radio Button", "Checkbox", "Image Upload", "Location Input")
 		self.inputSelect.pack(side="top")
 		self.addInput = Button(self.window)
 		self.addInput["text"] = "Add Input"
@@ -261,6 +316,11 @@ class Application(Frame):
 		
 	# Set the slider range
 	def setRange(self):
+		# Reset range values
+		self.rangeMin = 0				
+		self.rangeMax = 100				
+		self.rangeLab = "" 				
+		
 		self.rangeLabelFrame = Frame(self.rangeWindow)
 		self.rangeLabelFrame.pack(side="top")
 		
@@ -297,7 +357,37 @@ class Application(Frame):
 			self.rangeWindow.destroy()
 		else:
 			print("Invalid Range")
+	
+	def setOptions(self):
+		# Reset range values
+		self.options.clear()				 				
+		self.optionEntries.clear()				 				
+		self.numOptionsFrame = Frame(self.optionsWindow)
+		self.numOptionsFrame.pack(side="top")
 		
+		self.numOpLabel = Label(self.numOptionsFrame, text="Number of Options: ")
+		self.numOpLabel.pack(side="left")
+		self.numOptions = Entry(self.numOptionsFrame)
+		self.numOptions.pack(side="right")
+		
+		self.addOptions = Button(self.optionsWindow, text="Add Options",
+								command=self.addOptionBoxes)
+		self.addOptions.pack()
+		
+	def addOptionBoxes(self):
+		for i in range(int(self.numOptions.get())):
+			ent = Entry(self.optionsWindow)
+			self.optionEntries.append(ent)
+			ent.pack(side="top")
+		save = Button(self.optionsWindow, text="Save Options", command=self.saveOptions)
+		save.pack(side="bottom")
+			
+	def saveOptions(self):
+		for ent in self.optionEntries:
+			self.options.append(ent.get())
+		if len(self.options) > 0:
+			self.optionsWindow.destroy()
+			
 	# Generate all widgets used on the ui
 	def createWidgets(self):
 		
