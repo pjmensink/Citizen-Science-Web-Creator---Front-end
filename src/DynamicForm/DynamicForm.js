@@ -41,6 +41,8 @@ class DynamicForm extends React.Component {
             let props = m.props || {};
             let name= m.name;
             let value = m.value;
+            let min = m.min;
+            let max = m.max;
             let className = m.className || "form-input";
             let groupName = m.groupName || "form-group";
 
@@ -122,7 +124,18 @@ class DynamicForm extends React.Component {
                 input = <div className ="form-group-checkbox">{input}</div>;
 
              }
-            
+            if (type == "range") {
+				input =  <input {...props}
+                    className={className}
+                    type={type}
+                    key={key}
+                    name={name}
+                    defaultValue={value}
+                    min={min}
+                    max={max}
+                    onChange={(e)=>{this.onChange(e)}}
+                />;
+			}
             return (
                 <div key={'g' + key} className={groupName}>
                     <label className="form-label"
