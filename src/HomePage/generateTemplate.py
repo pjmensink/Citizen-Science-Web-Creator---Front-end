@@ -86,14 +86,14 @@ class Application(Frame):
 			for option in item['options']:
 				options.append(option['value'])
 			ent = Checkbutton(self.window, text="Check Button Group")
-		elif thisType == "Image Upload":
-			inputType = ""
-			className = ""
-			ent = Label(self.window, text="Image Upload Widget")
-		elif thisType == "Location Input":
-			inputType = ""
+		elif thisType == "map":
+			inputType = "map"
 			className = ""
 			ent = Label(self.window, text="Location Select Widget")
+		elif thisType == "imageUpload":
+			inputType = "imageUpload"
+			className = ""
+			ent = Label(self.window, text="Image Upload")
 		else:
 			inputType = ""
 			className = ""
@@ -162,11 +162,11 @@ class Application(Frame):
 			ent = Checkbutton(self.window, text="Check Button Group")
 			ent.pack(side="top")
 		elif thisType == "Image Upload":
-			inputType = ""
+			inputType = "imageUpload"
 			className = ""
 			ent = Label(self.window, text="Image Upload Widget")
 		elif thisType == "Location Input":
-			inputType = ""
+			inputType = "map"
 			className = ""
 			ent = Label(self.window, text="Location Select Widget")
 		else:

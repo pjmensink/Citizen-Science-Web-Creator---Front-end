@@ -3,17 +3,38 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { userActions } from '../_actions';
-
+import { GoogleMap } from '../GoogleMap';
+import { Modal } from '../Modal';
+import './modal.css'; //Stylesheet for the modal window
 
 class DynamicForm extends React.Component {
 	
     constructor(props) {
         super(props);
-        this.state ={};
+        this.state ={showMap: false};
         this.onChange = this.onChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
     }
-
+	
+	closeModal() {
+		this.setState( {showMap: false} ); // Close modal
+	}
+	
+	// Handler for map click
+	handleClick(latitude, longitude) {
+		this.setState( {showMap: false} ); //Hide map after location chosen
+		//Update location data
+		this.setState( {lat: latitude} );
+		this.setState( {lng: longitude} );
+	}
+	
+	// Handle select location event
+	chooseLoc(event) {
+		event.preventDefault();
+		this.setState( {showMap: true} ); // Display the google map component to select a location
+	} 
+	
+	
     onSubmit(e) {
         e.preventDefault();
         if (this.props.onSubmit) this.props.onSubmit(this.state);
@@ -124,6 +145,7 @@ class DynamicForm extends React.Component {
                 input = <div className ="form-group-checkbox">{input}</div>;
 
              }
+             
             if (type == "range") {
 				input =  <input {...props}
                     className={className}
@@ -136,6 +158,30 @@ class DynamicForm extends React.Component {
                     onChange={(e)=>{this.onChange(e)}}
                 />;
 			}
+			
+			if (type == "map") {
+				input =  <div><Modal show={this.state.showMap} handleClose={this.closeModal.bind(this)}>
+							<GoogleMap size={{ height: '80%', width: '100%' }} handleClick={this.handleClick.bind(this)} center={{lat: 42, lng: -81}} zoom={3}/> 
+						</Modal>
+						<button style={{"height":"30px","fontWeight":"bold","color":"white","background":"rgb(26, 188, 156)"}}type="button" onClick={this.chooseLoc.bind(this)}>Select Location</button></div>;
+			}
+			
+			if (type == "imageUpload") {
+				
+				input = <div><div>
+								<input
+									ref={ref => {
+										this.uploadInput = ref;
+									}}
+									type="file"
+									name='photo'
+									onChange={this.handleChange}
+								/>
+							</div>
+							<img style={{"height" : "50px", "width" : "100px"}} src={this.state.imageURL} />
+							<hr /></div>;
+			}
+			
             return (
                 <div key={'g' + key} className={groupName}>
                     <label className="form-label"
