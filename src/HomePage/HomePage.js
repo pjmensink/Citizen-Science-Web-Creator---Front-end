@@ -11,6 +11,8 @@ import { Modal } from '../Modal';
 import formData from './data.json';
 import styleData from './styles.json';
 
+import { text } from './about.json'
+
 import './inputForm.css'; //Stylesheet for the data input form
 import './modal.css'; //Stylesheet for the modal window
 
@@ -94,7 +96,7 @@ class HomePage extends React.Component {
 		const { user, users, hist } = this.props;
 		console.log(formData);
 		return (
-			<div>
+			<div style={{"backgroundImage": "url('https://images8.alphacoders.com/443/thumb-1920-443242.jpg')", "height": "700px"}}>
 				{/*}<Modal show={this.state.showMap} handleClose={this.closeModal.bind(this)}>
 					<GoogleMap size={{ height: '80%', width: '100%' }} handleClick={this.handleClick.bind(this)} center={{lat: 42, lng: -81}} zoom={3}/> 
 				</Modal>
@@ -134,6 +136,8 @@ class HomePage extends React.Component {
 						<input type="submit" value="Submit" style={{"fontWeight":"bold", "color":"white"}}/>
 					</form>
 				</div>{*/}
+				
+				<div style={{"float": "left", "display": "table", "margin": "0 auto", "width": "29%"}}>
 				<DynamicForm className="form"
 				  title = "Fish Data"
 				  model={
@@ -142,6 +146,11 @@ class HomePage extends React.Component {
 				  className={styleData["style"]}
 				  onSubmit = {(model) => {this.onSubmit(model)}} 
 				/>
+				</div>
+				<div style={{"float": "left", "margin": "50px", "width": "29%"}}>
+					<div style={{"backgroundImage": "url('https://sc02.alicdn.com/kf/HTB1FvcCJFXXXXbKXXXXq6xXFXXXZ/Single-side-aquarium-fish-tank-decorative-wall.jpg_350x350.jpg')", "height": "350px", "width": "350px", "position":"absolute", "display": "table", "margin": "0 auto"}}></div>
+					<div style={{"position": "relative", "top": "400px"}}><h3>About Us</h3><p>{text}</p></div>
+				</div>
 			</div>
 		);
 	}

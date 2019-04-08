@@ -35,8 +35,8 @@ class App extends React.Component {
 							<div>
 								<nav className="navbar navbar-default">
 								  <ul className="nav navbar-nav">
-									{loggedIn&&<li><Link to={'/home'}> Home </Link></li>}
-									{loggedIn&&<li><Link to={'/history'}>Upload History</Link></li>}
+									{loggedIn&&<li><Link to={'/home'}> <b>Home</b> </Link></li>}
+									{loggedIn&&<li><Link to={'/history'}><b>Upload History</b></Link></li>}
 									{loggedIn&&<li><Link to={'/locations'}>Location History</Link></li>}
 									{loggedIn&&<li><Link to={'/gallery'}>Gallery</Link></li>}
 									
