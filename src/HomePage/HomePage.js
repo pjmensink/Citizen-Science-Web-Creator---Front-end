@@ -12,6 +12,7 @@ import formData from './data.json';
 import styleData from './styles.json';
 
 import { text } from './about.json'
+import { url } from './background.json'
 
 import './inputForm.css'; //Stylesheet for the data input form
 import './modal.css'; //Stylesheet for the modal window
@@ -96,7 +97,8 @@ class HomePage extends React.Component {
 		const { user, users, hist } = this.props;
 		console.log(formData);
 		return (
-			<div style={{"backgroundImage": "url('https://images8.alphacoders.com/443/thumb-1920-443242.jpg')", "height": "700px"}}>
+			<div>
+			<div style={{"backgroundImage": "url("+url+")", "height": "700px"}}>
 				{/*}<Modal show={this.state.showMap} handleClose={this.closeModal.bind(this)}>
 					<GoogleMap size={{ height: '80%', width: '100%' }} handleClick={this.handleClick.bind(this)} center={{lat: 42, lng: -81}} zoom={3}/> 
 				</Modal>
@@ -136,21 +138,23 @@ class HomePage extends React.Component {
 						<input type="submit" value="Submit" style={{"fontWeight":"bold", "color":"white"}}/>
 					</form>
 				</div>{*/}
-				
-				<div style={{"float": "left", "display": "table", "margin": "0 auto", "width": "29%"}}>
+				{/*}<div style={{"position": "relative", "top": "100px", "margin": "10px auto"}}><h1 style={{"fontFamily": "arial", "color": "yellow"}}><b>OCEAN EYES</b></h1></div>{*/}
 				<DynamicForm className="form"
-				  title = "Fish Data"
+				  title = "Ocean Eyes"
 				  model={
 					formData
 				  }
 				  className={styleData["style"]}
 				  onSubmit = {(model) => {this.onSubmit(model)}} 
 				/>
-				</div>
-				<div style={{"float": "left", "margin": "50px", "width": "29%"}}>
-					<div style={{"backgroundImage": "url('https://sc02.alicdn.com/kf/HTB1FvcCJFXXXXbKXXXXq6xXFXXXZ/Single-side-aquarium-fish-tank-decorative-wall.jpg_350x350.jpg')", "height": "350px", "width": "350px", "position":"absolute", "display": "table", "margin": "0 auto"}}></div>
-					<div style={{"position": "relative", "top": "400px"}}><h3>About Us</h3><p>{text}</p></div>
-				</div>
+			</div>
+			
+			<div style={{"float": "left", "margin": "10px", "width": "40%"}}>
+					<div style={{"position": "relative", "bottom": "10px"}}><h2><b>About Us</b></h2><p style={{"fontSize": "18px"}}>{text}</p></div>
+			</div>
+			<div style={{"float": "right", "margin": "10px", "width": "40%"}}>
+					<div style={{"position": "relative", "bottom": "10px"}}><h3><b>Funding Agencies</b></h3><img width="200px"src="https://upload.wikimedia.org/wikipedia/en/thumb/3/3c/Natural_Sciences_and_Engineering_Research_Council_Logo.svg/1200px-Natural_Sciences_and_Engineering_Research_Council_Logo.svg.png"></img></div>
+			</div>
 			</div>
 		);
 	}

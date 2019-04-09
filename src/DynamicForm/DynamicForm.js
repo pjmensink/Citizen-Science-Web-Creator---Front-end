@@ -11,7 +11,7 @@ class DynamicForm extends React.Component {
 	
     constructor(props) {
         super(props);
-        this.state ={showMap: false};
+        this.state ={showMap: false, size: 1};
         this.onChange = this.onChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
     }
@@ -147,7 +147,7 @@ class DynamicForm extends React.Component {
              }
              
             if (type == "range") {
-				input =  <input {...props}
+				input =<input {...props}
                     className={className}
                     type={type}
                     key={key}
@@ -200,7 +200,7 @@ class DynamicForm extends React.Component {
         let title = this.props.title || "Dynamic Form";
 
         return (
-            <div className={this.props.className}>
+            <div className={this.props.className} id="formTemplate">
                 <h3 className="form-title">{title}</h3>
                 <form className="dynamic-form" onSubmit={(e)=>{this.onSubmit(e)}}>
                     {this.renderForm()}
