@@ -26,6 +26,7 @@ class Application(Frame):
 		self.optionsWindow = None		# Window for options input
 		self.optionEntries = []			# List of options entry boxes
 		self.options = []				# List of options
+		self.dropLab = ""
 	
 	# When the ui is being edited, show the current state of the ui before editing begins, get state from the data.json file
 	def restoreState(self):
@@ -142,6 +143,7 @@ class Application(Frame):
 			root.wait_window(self.optionsWindow)
 			inputType = "select"
 			className = ""
+			inputName = self.dropLab
 			variable = StringVar(self.window)
 			variable.set(self.options[0]) # default value
 			ent = OptionMenu(self.window, variable, *self.options)
@@ -361,9 +363,16 @@ class Application(Frame):
 	def setOptions(self):
 		# Reset range values
 		self.options.clear()				 				
-		self.optionEntries.clear()				 				
+		self.optionEntries.clear()	
+		self.rangeNameFrame = Frame(self.optionsWindow)
+		self.rangeNameFrame.pack(side="top")			 				
 		self.numOptionsFrame = Frame(self.optionsWindow)
 		self.numOptionsFrame.pack(side="top")
+		
+		self.dropLab = Label(self.rangeNameFrame, text="DropDown Label: ")
+		self.dropLab.pack(side="left")
+		self.dropName = Entry(self.rangeNameFrame)
+		self.dropName.pack(side="right")
 		
 		self.numOpLabel = Label(self.numOptionsFrame, text="Number of Options: ")
 		self.numOpLabel.pack(side="left")
@@ -383,6 +392,7 @@ class Application(Frame):
 		save.pack(side="bottom")
 			
 	def saveOptions(self):
+		self.dropLab = self.dropName.get()
 		for ent in self.optionEntries:
 			self.options.append(ent.get())
 		if len(self.options) > 0:
@@ -421,5 +431,6 @@ class Application(Frame):
 		self.QUIT.pack(side="bottom")
 
 root = Tk()
+root.title("Citizen Science Web Portal")
 app = Application(master=root)
 app.mainloop()
