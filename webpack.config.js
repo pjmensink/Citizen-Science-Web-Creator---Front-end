@@ -23,7 +23,11 @@ module.exports = {
                 query: {
                     presets: ['react', 'es2015', 'stage-3']
                 }
-            }
+            },
+            { 
+				test: /\.json$/, 
+				loader: 'json-loader' 
+			},
         ]
     },
     plugins: [new HtmlWebpackPlugin({

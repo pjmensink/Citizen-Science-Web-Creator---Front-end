@@ -34,19 +34,18 @@ class App extends React.Component {
                         
                         <Router history={history}>
 							<div>
-								<nav className="navbar navbar-default">
-								  <ul className="nav navbar-nav">
-									{loggedIn&&<li><Link to={'/home'}> Home </Link></li>}
-									{loggedIn&&<li><Link to={'/history'}>Upload History</Link></li>}
-									{loggedIn&&<li><Link to={'/data'}>All Data</Link></li>}
-									{loggedIn&&<li><Link to={'/locations'}>Location History</Link></li>}
-									{loggedIn&&<li><Link to={'/gallery'}>Gallery</Link></li>}
-									
+
+								<nav className="navbar navbar-default" style={{"marginBottom": "-10px"}}>
+								  <ul className="nav navbar-nav" style={{"paddingTop": "5px"}}>
+									{loggedIn&&<li><Link to={'/home'}> <p style={{"font-size": "20px"}}><b>Home</b></p> </Link></li>}
+									{loggedIn&&<li><Link to={'/history'}><p style={{"font-size": "20px"}}><b>Upload History</b></p></Link></li>}
+									{loggedIn&&<li><Link to={'/locations'}><p style={{"font-size": "20px"}}><b>Location History</b></p></Link></li>}
+									{loggedIn&&<li><Link to={'/gallery'}><p style={{"font-size": "20px"}}><b>Gallery</b></p></Link></li>}				
 								  </ul>
-								  <ul className="nav navbar-nav navbar-right" style={{"paddingRight":"15px"}}>
-									<li><Link to={'/register'}>Signup</Link></li>
-									{loggedIn&&<li><Link to={'/login'}>Logout</Link></li>}
-									{!loggedIn&&<li><Link to={'/login'}>Login</Link></li>}
+								  <ul className="nav navbar-nav navbar-right" style={{"paddingRight":"15px", "paddingTop": "5px"}}>
+									<li><Link to={'/register'}><p style={{"font-size": "20px"}}>Signup</p></Link></li>
+									{loggedIn&&<li><Link to={'/login'}><p style={{"font-size": "20px"}}>Logout</p></Link></li>}
+									{!loggedIn&&<li><Link to={'/login'}><p style={{"font-size": "20px"}}>Login</p></Link></li>}
 								  </ul>
 								</nav>
 								{alert.message &&

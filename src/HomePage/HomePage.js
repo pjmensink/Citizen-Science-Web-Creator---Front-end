@@ -5,20 +5,22 @@ import { connect } from 'react-redux';
 import { userActions } from '../_actions';
 
 import { GoogleMap } from '../GoogleMap';
+import { DynamicForm } from '../DynamicForm';
 import { Modal } from '../Modal';
+
+import formData from './data.json';
+import styleData from './styles.json';
+
+import { text } from './about.json'
+import { url } from './background.json'
 
 import './inputForm.css'; //Stylesheet for the data input form
 import './modal.css'; //Stylesheet for the modal window
 
 class HomePage extends React.Component {
-	
-	handleDeleteUser(id) {
-		return (e) => this.props.dispatch(userActions.delete(id));
-	}
   
 	constructor(props) {
 		super(props);
-		
 		// State contains data to be submitted
 		this.state = {
 						loc: '',
@@ -88,12 +90,16 @@ class HomePage extends React.Component {
 	closeModal() {
 		this.setState( {showMap: false} ); // Close modal
 	}
-	
+	onSubmit(model){
+		console.log(model);
+	}
 	render() {
 		const { user, users, hist } = this.props;
+		console.log(formData);
 		return (
 			<div>
-				<Modal show={this.state.showMap} handleClose={this.closeModal.bind(this)}>
+			<div style={{"backgroundImage": "url("+url+")", "height": "700px"}}>
+				{/*}<Modal show={this.state.showMap} handleClose={this.closeModal.bind(this)}>
 					<GoogleMap size={{ height: '80%', width: '100%' }} handleClick={this.handleClick.bind(this)} center={{lat: 42, lng: -81}} zoom={3}/> 
 				</Modal>
 				<div className="form-style-5">
@@ -131,7 +137,24 @@ class HomePage extends React.Component {
 						</fieldset>
 						<input type="submit" value="Submit" style={{"fontWeight":"bold", "color":"white"}}/>
 					</form>
-				</div>
+				</div>{*/}
+				{/*}<div style={{"position": "relative", "top": "100px", "margin": "10px auto"}}><h1 style={{"fontFamily": "arial", "color": "yellow"}}><b>OCEAN EYES</b></h1></div>{*/}
+				<DynamicForm className="form"
+				  title = "Ocean Eyes"
+				  model={
+					formData
+				  }
+				  className={styleData["style"]}
+				  onSubmit = {(model) => {this.onSubmit(model)}} 
+				/>
+			</div>
+			
+			<div style={{"float": "left", "margin": "10px", "width": "40%"}}>
+					<div style={{"position": "relative", "bottom": "10px"}}><h2><b>About Us</b></h2><p style={{"fontSize": "18px"}}>{text}</p></div>
+			</div>
+			<div style={{"float": "right", "margin": "10px", "width": "40%"}}>
+					<div style={{"position": "relative", "bottom": "10px"}}><h3><b>Funding Agencies</b></h3><img width="200px"src="https://upload.wikimedia.org/wikipedia/en/thumb/3/3c/Natural_Sciences_and_Engineering_Research_Council_Logo.svg/1200px-Natural_Sciences_and_Engineering_Research_Council_Logo.svg.png"></img></div>
+			</div>
 			</div>
 		);
 	}
