@@ -11,18 +11,19 @@ class DynamicForm extends React.Component {
 	
     constructor(props) {
         super(props);
-        this.state ={showMap: false, size: 1};
+        this.state ={};
+        this.showMap = false;
         this.onChange = this.onChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
     }
 	
 	closeModal() {
-		this.setState( {showMap: false} ); // Close modal
+		this.showMap = false;
 	}
 	
 	// Handler for map click
 	handleClick(latitude, longitude) {
-		this.setState( {showMap: false} ); //Hide map after location chosen
+		closeModal();
 		//Update location data
 		this.setState( {lat: latitude} );
 		this.setState( {lng: longitude} );
@@ -31,7 +32,7 @@ class DynamicForm extends React.Component {
 	// Handle select location event
 	chooseLoc(event) {
 		event.preventDefault();
-		this.setState( {showMap: true} ); // Display the google map component to select a location
+		this.showMap = true; // Display the google map component to select a location
 	} 
 	
 	

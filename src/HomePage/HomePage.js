@@ -90,9 +90,15 @@ class HomePage extends React.Component {
 	closeModal() {
 		this.setState( {showMap: false} ); // Close modal
 	}
+	
 	onSubmit(model){
 		console.log(model);
+		const { dispatch } = this.props;
+		dispatch(userActions.submit(model));	// Dispatch a submit data request
+		//const imageURL = this.state.photo.split("\\").pop(); // Retrive just file name
+		//dispatch(userActions.submitImage(this.uploadInput.files[0], this.state.photo.split("\\").pop().split(".")[0])); // Dispatch a submit image request
 	}
+	
 	render() {
 		const { user, users, hist } = this.props;
 		console.log(formData);

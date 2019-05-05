@@ -61,13 +61,13 @@ class DataPage extends React.Component {
 
 			<div>
 				{hist.items &&
-					<ReactTable className="-striped -highlight"
+					<ReactTable style={{"width": "100%"}} className="-striped -highlight"
 						data={hist.items}
 						columns={columns}
 						filterable={true}
 					/>	
 				}
-				{hist.items &&<CSVLink data={hist.items}>Download me</CSVLink>}
+				{hist.items &&<CSVLink data={hist.items}><p style={{"fontSize": "20px"}}>Download CSV</p></CSVLink>}
 			</div>	
     );
   }

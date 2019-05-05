@@ -27,6 +27,7 @@ class App extends React.Component {
     render() {
         const { alert } = this.props;
         const loggedIn = localStorage.getItem('user');
+        const admin = localStorage.getItem('user'); // Must be chaged such that only administrative accounts can access the datapage
         return (
             <div>
                 <div>
@@ -37,15 +38,16 @@ class App extends React.Component {
 
 								<nav className="navbar navbar-default" style={{"marginBottom": "-10px"}}>
 								  <ul className="nav navbar-nav" style={{"paddingTop": "5px"}}>
-									{loggedIn&&<li><Link to={'/home'}> <p style={{"font-size": "20px"}}><b>Home</b></p> </Link></li>}
-									{loggedIn&&<li><Link to={'/history'}><p style={{"font-size": "20px"}}><b>Upload History</b></p></Link></li>}
-									{loggedIn&&<li><Link to={'/locations'}><p style={{"font-size": "20px"}}><b>Location History</b></p></Link></li>}
-									{loggedIn&&<li><Link to={'/gallery'}><p style={{"font-size": "20px"}}><b>Gallery</b></p></Link></li>}				
+									{loggedIn&&<li><Link to={'/home'}> <p style={{"fontSize": "20px"}}><b>Home</b></p> </Link></li>}
+									{loggedIn&&<li><Link to={'/history'}><p style={{"fontSize": "20px"}}><b>Upload History</b></p></Link></li>}
+									{admin&&<li><Link to={'/data'}><p style={{"fontSize": "20px"}}><b>All History</b></p></Link></li>}
+									{loggedIn&&<li><Link to={'/locations'}><p style={{"fontSize": "20px"}}><b>Location History</b></p></Link></li>}
+									{loggedIn&&<li><Link to={'/gallery'}><p style={{"fontSize": "20px"}}><b>Gallery</b></p></Link></li>}				
 								  </ul>
 								  <ul className="nav navbar-nav navbar-right" style={{"paddingRight":"15px", "paddingTop": "5px"}}>
-									<li><Link to={'/register'}><p style={{"font-size": "20px"}}>Signup</p></Link></li>
-									{loggedIn&&<li><Link to={'/login'}><p style={{"font-size": "20px"}}>Logout</p></Link></li>}
-									{!loggedIn&&<li><Link to={'/login'}><p style={{"font-size": "20px"}}>Login</p></Link></li>}
+									<li><Link to={'/register'}><p style={{"fontSize": "20px"}}>Signup</p></Link></li>
+									{loggedIn&&<li><Link to={'/login'}><p style={{"fontSize": "20px"}}>Logout</p></Link></li>}
+									{!loggedIn&&<li><Link to={'/login'}><p style={{"fontSize": "20px"}}>Login</p></Link></li>}
 								  </ul>
 								</nav>
 								{alert.message &&
