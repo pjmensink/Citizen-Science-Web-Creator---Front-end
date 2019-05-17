@@ -230,10 +230,10 @@ class Application(Frame):
 	
 	# Upload all files in path to a remote server
 	def uploadToServer(self):
-		username = "nfallowf"
-		password = "h7Y65thUp0"
-		host = "compute.gaul.csd.uwo.ca"
-		port = 22 
+		username = input()
+		password = input()
+		host = input()
+		port = input()
 
 		import pysftp
 		remotepath = '/'
@@ -243,7 +243,7 @@ class Application(Frame):
 
 		with pysftp.Connection(host=host,username=username,password=password,cnopts=cnopts, port=22) as sftp:
 
-			sftp.put_r('../../src/', "/student/nfallowf/thesis/my-app")
+			sftp.put_r(localpath, remotepath)
 			print('Upload finished')
 	
 	# Start node project on localhost:8080 if available
