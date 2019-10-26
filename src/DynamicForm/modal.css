@@ -24,3 +24,9 @@
 .display-none {
   display: none;
 }
+.form-title {
+color: #000000;
+font-size: 30px;
+text-decoration: underline;
+padding-bottom: 10px;
+}

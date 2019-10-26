@@ -12,7 +12,12 @@ import formData from './data.json';
 import styleData from './styles.json';
 
 import { text } from './about.json'
+import { text1 } from './about1.json'
+import { text2 } from './about2.json'
+import { text4 } from './about4.json'
 import { url } from './background.json'
+import { image } from './image.json'
+import { titlename } from './title.json'
 
 import './inputForm.css'; //Stylesheet for the data input form
 import './modal.css'; //Stylesheet for the modal window
@@ -146,7 +151,7 @@ class HomePage extends React.Component {
 				</div>{*/}
 				{/*}<div style={{"position": "relative", "top": "100px", "margin": "10px auto"}}><h1 style={{"fontFamily": "arial", "color": "yellow"}}><b>OCEAN EYES</b></h1></div>{*/}
 				<DynamicForm className="form"
-				  title = "Ocean Eyes"
+				  title={ titlename }
 				  model={
 					formData
 				  }
@@ -155,11 +160,18 @@ class HomePage extends React.Component {
 				/>
 			</div>
 			
-			<div style={{"float": "left", "margin": "10px", "width": "40%"}}>
-					<div style={{"position": "relative", "bottom": "10px"}}><h2><b>About Us</b></h2><p style={{"fontSize": "18px"}}>{text}</p></div>
+			<div style={{"float": "left", "margin": "5px", "width": "40%"}}>
+					<div style={{"position": "relative", "bottom": "5px"}}><h2><b></b></h2><p style={{"fontSize": "25px", "word-wrap": "break-word", "white-space": "nowrap", "overflow": "hidden"}}>{text}</p></div>
 			</div>
-			<div style={{"float": "right", "margin": "10px", "width": "40%"}}>
-					<div style={{"position": "relative", "bottom": "10px"}}><h3><b>Funding Agencies</b></h3><img width="200px"src="https://upload.wikimedia.org/wikipedia/en/thumb/3/3c/Natural_Sciences_and_Engineering_Research_Council_Logo.svg/1200px-Natural_Sciences_and_Engineering_Research_Council_Logo.svg.png"></img></div>
+			<div style={{"float": "right", "margin": "5px", "width": "40%"}}>
+					<div style={{"position": "relative", "bottom": "5px"}}><h2><b></b></h2><p style={{"fontSize": "25px", "word-wrap": "break-word", "white-space": "nowrap", "overflow": "hidden"}}>{text1}</p></div>
+			</div>
+			<div style={{"float": "left", "margin": "5px", "width": "40%"}}>
+					<div style={{"position": "relative", "bottom": "5px"}}><h2><b></b></h2><p style={{"fontSize": "18px", "word-wrap": "break-word"}}>{text2}</p></div>
+			</div>
+			<div style={{"float": "right", "margin": "5px", "width": "40%"}}>
+				<div style={{"position": "relative", "bottom": "5px"}}><h2><b></b></h2><p style={{"fontSize": "18px", "display": "inline", "white-space": "nowrap", "word-wrap": "break-word"}}>{text4}</p></div>
+				<div style={{"backgroundImage": "url("+image+")", "height": "200px", "width": "200px", "background-size": "cover", "display": "inline-block", "white-space": "nowrap"}}></div>
 			</div>
 			</div>
 		);

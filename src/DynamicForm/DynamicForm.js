@@ -7,6 +7,10 @@ import { GoogleMap } from '../GoogleMap';
 import { Modal } from '../Modal';
 import './modal.css'; //Stylesheet for the modal window
 
+import { color } from '../HomePage/color.json'
+import { font } from '../HomePage/font.json'
+import { fontcolor } from '../HomePage/fontcolor.json'
+
 class DynamicForm extends React.Component {
 	
     constructor(props) {
@@ -201,7 +205,7 @@ class DynamicForm extends React.Component {
         let title = this.props.title || "Dynamic Form";
 
         return (
-            <div className={this.props.className} id="formTemplate">
+            <div className={this.props.className} id="formTemplate" style={{"background": color, "font-family": font, "color": fontcolor}}>
                 <h3 className="form-title">{title}</h3>
                 <form className="dynamic-form" onSubmit={(e)=>{this.onSubmit(e)}}>
                     {this.renderForm()}

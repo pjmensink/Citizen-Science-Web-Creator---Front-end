@@ -26,7 +26,9 @@ class LocationPage extends React.Component {
     return (
 
 			<div>
-				<GoogleMap size={{ height: '100vh', width: '100%' }} data={hist.items} center={{lat: 42, lng: -81}} zoom={5}/> 
+				<GoogleMap size={{ height: '100vh', width: '100%' }} data={hist.items} center={{lat: 42, lng: -81}} zoom={5}/>
+				<script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"
+  type="text/javascript"></script> 
 			</div>	
     );
   }
