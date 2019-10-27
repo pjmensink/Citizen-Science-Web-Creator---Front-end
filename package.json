@@ -6,7 +6,7 @@
     "url": "https://github.com/nfallowf/ocean-eyes-frontend.git"
   },
   "scripts": {
-    "start": "webpack-dev-server --open"
+    "start": "node app"
   },
   "dependencies": {
     "ajv": "^6.5.5",
