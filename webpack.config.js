@@ -45,8 +45,6 @@ module.exports = {
         port: process.env.PORT || config.dev.port,
         open: false,
         overlay: false,
-        publicPath: config.dev.assetsPublicPath,
-        proxy: config.dev.proxyTable,
         quiet: true
     },
     externals: {
