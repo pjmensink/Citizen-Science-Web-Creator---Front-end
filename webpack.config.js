@@ -35,7 +35,7 @@ module.exports = {
         filename: 'index.html',
         inject: 'body'
     })],
-    devtool: config.build.productionSourceMap ? config.build.devtool : false,
+    //devtool: config.build.productionSourceMap ? config.build.devtool : false,
     devServer: {
 	disableHostCheck: true,
         clientLogLevel: 'warning',
