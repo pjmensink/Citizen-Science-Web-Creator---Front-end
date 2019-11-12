@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --open",
-    "start": "webpack-dev-server --port process.env.PORT --host 0.0.0.0"
+    "start": "webpack-dev-server --port $PORT --host 0.0.0.0 --config webpack.config.js"
 
   },
   "dependencies": {

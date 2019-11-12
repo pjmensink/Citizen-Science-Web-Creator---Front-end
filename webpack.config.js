@@ -35,8 +35,19 @@ module.exports = {
         filename: 'index.html',
         inject: 'body'
     })],
+    devtool: config.build.productionSourceMap ? config.build.devtool : false,
     devServer: {
-        historyApiFallback: true
+	disableHostCheck: true,
+        clientLogLevel: 'warning',
+        historyApiFallback: true, 
+	hot: false,
+        host: '0.0.0.0',
+        port: process.env.PORT || config.dev.port,
+        open: false,
+        overlay: false,
+        publicPath: config.dev.assetsPublicPath,
+        proxy: config.dev.proxyTable,
+        quiet: true
     },
     externals: {
         // global app config object
