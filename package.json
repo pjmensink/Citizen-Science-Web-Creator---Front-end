@@ -6,7 +6,6 @@
     "url": "https://github.com/nfallowf/ocean-eyes-frontend.git"
   },
   "scripts": {
-    "heroku-prebuild": "npm install --dev",
     "start": "webpack-dev-server --open"
 
   },
