@@ -13,6 +13,8 @@ Firstly, the Citizen Science Web Creator offers an easy to use interactive graph
 
 In addition to this, this web application allows users to set up admin privileges and view data on a standard web browser as well as download the data in CSV format. 
 
+*Dependant on Heroku and MongoDB Atlas
+
 Citizen Science Web Creator is implemented and deployed following public license practices.
 
 
@@ -25,7 +27,7 @@ Citizen Science Web Creator is implemented and deployed following public license
 # Citizen Science Web Creator History :
 
 - The Citizen Science Web Creator project was first initiated in 2018
-- Database usage changed from mlab to MongoDb Atlas in February 2019
+- Database usage changed from mlab to MongoDB Atlas in February 2019
 - First alpha practical version was completed September 2019 
 - Heroku deployment tactic implemented in October 2019
 - Version 1.1.0 was produced in January 2020
