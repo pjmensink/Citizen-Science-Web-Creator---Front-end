@@ -11,6 +11,7 @@ export const userService = {
     saveData,
     saveImage,
     getUsersData,
+    getAllItems,
     getImages,
     delete: _delete
 };
@@ -48,6 +49,7 @@ function getAll() {
 
     return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse);
 }
+
 
 function getById(id) {
     const requestOptions = {
@@ -106,13 +108,14 @@ function handleResponse(response) {
     });
 }
 
-function saveData(location, catch_size, conditions, date, imageURL, latitude, longitude, species, common) {
+function saveData(data) {
 	const user = localStorage.getItem('user');
-	const userId = JSON.parse(user)._id
+	const userId = JSON.parse(user)._id;
 	const requestOptions = {
         method: 'POST',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId, location, catch_size, conditions, date, imageURL, latitude, longitude, species, common })
+        body: JSON.stringify({ userId, data })
+        //body: JSON.stringify({ userId, model })
     };
     return fetch(`${config.apiUrl}/fishdata/submit`, requestOptions).then(handleResponse);
 }
@@ -132,7 +135,7 @@ function saveImage(file, filename) {
 }
 
 function getUsersData() {
-	const user = localStorage.getItem('user');
+    const user = localStorage.getItem('user');
 	const userId = JSON.parse(user)._id
 	
 	const requestOptions = {
@@ -142,6 +145,19 @@ function getUsersData() {
     };
     
     return fetch(`${config.apiUrl}/fishdata/getAll`, requestOptions).then(handleResponse);
+}
+
+function getAllItems() {
+    
+    const requestOptions = {
+        //method: 'GET',
+        //headers: authHeader(),
+        method: 'POST',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' }
+        //body: JSON.stringify({})
+    };
+    
+    return fetch(`${config.apiUrl}/fishdata/getAllItems`, requestOptions).then(handleResponse);
 }
 
 function getImages() {

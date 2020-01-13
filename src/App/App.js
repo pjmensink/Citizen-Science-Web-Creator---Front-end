@@ -12,6 +12,7 @@ import { HistoryPage } from '../HistoryPage';
 import { LocationPage } from '../LocationPage';
 import { GalleryPage } from '../GalleryPage';
 import { DataPage } from '../DataPage';
+import { adminAcc } from '../HomePage/access.json'
 
 class App extends React.Component {
     constructor(props) {
@@ -27,7 +28,17 @@ class App extends React.Component {
     render() {
         const { alert } = this.props;
         const loggedIn = localStorage.getItem('user');
-        const admin = localStorage.getItem('user'); // Must be chaged such that only administrative accounts can access the datapage
+        var access;
+        try {
+           if (JSON.parse(loggedIn).adminAccess.toString() == adminAcc){
+            access = 1;
+        }
+        }
+        catch (e) {
+           console.log(e);
+        }
+
+        
         return (
             <div>
                 <div>
@@ -40,7 +51,7 @@ class App extends React.Component {
 								  <ul className="nav navbar-nav" style={{"paddingTop": "5px"}}>
 									{loggedIn&&<li><Link to={'/home'}> <p style={{"fontSize": "20px"}}><b>Home</b></p> </Link></li>}
 									{loggedIn&&<li><Link to={'/history'}><p style={{"fontSize": "20px"}}><b>Upload History</b></p></Link></li>}
-									{admin&&<li><Link to={'/data'}><p style={{"fontSize": "20px"}}><b>All History</b></p></Link></li>}
+									{loggedIn&&<li><Link to={'/data'}><p style={{"fontSize": "20px"}}><b>All History</b></p></Link></li>}
 									{loggedIn&&<li><Link to={'/locations'}><p style={{"fontSize": "20px"}}><b>Location History</b></p></Link></li>}
 									{loggedIn&&<li><Link to={'/gallery'}><p style={{"fontSize": "20px"}}><b>Gallery</b></p></Link></li>}				
 								  </ul>

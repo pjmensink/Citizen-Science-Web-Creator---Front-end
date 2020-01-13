@@ -12,6 +12,7 @@ class RegisterPage extends React.Component {
             user: {
                 firstName: '',
                 lastName: '',
+                adminAccess: '',
                 username: '',
                 password: ''
             },
@@ -78,6 +79,11 @@ class RegisterPage extends React.Component {
                         {submitted && !user.password &&
                             <div className="help-block">Password is required</div>
                         }
+                    </div>
+                    <div className={'form-group' + (submitted && !user.adminAccess ? ' has-error' : '')}>
+                        <label htmlFor="adminAccess">Admin Access Code (Optional)</label>
+                        <input type="text" className="form-control" name="adminAccess" value={user.adminAccess} onChange={this.handleChange} />
+                        
                     </div>
                     <div className="form-group">
                         <button className="btn btn-primary">Register</button>

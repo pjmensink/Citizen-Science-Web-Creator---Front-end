@@ -35,22 +35,14 @@ module.exports = {
         filename: 'index.html',
         inject: 'body'
     })],
-    //devtool: config.build.productionSourceMap ? config.build.devtool : false,
     devServer: {
-	disableHostCheck: true,
-        clientLogLevel: 'warning',
-        historyApiFallback: true, 
-	hot: false,
-        host: '0.0.0.0',
-        port: process.env.PORT || config.dev.port,
-        open: false,
-        overlay: false,
-        quiet: true
+        historyApiFallback: true
     },
     externals: {
         // global app config object
+	//
         config: JSON.stringify({
-            apiUrl: 'https://oceaneyesbe.herokuapp.com'
+            apiUrl: 'http://localhost:4000'
         })
     }
 }

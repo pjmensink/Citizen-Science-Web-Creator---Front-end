@@ -62,6 +62,7 @@ class Application(Frame):
         self.styleWindow = None  # 3rd window for style editing
         self.styleType = ""
 
+        self.nameWindow = None #Window for adding name
         self.rangeWindow = None  # Window for slider range input
         self.rangeMin = 0  # Min value for slider
         self.rangeMax = 100  # Max value for slider
@@ -174,10 +175,15 @@ class Application(Frame):
         thisType = self.inputType.get()
         
         if thisType == "Text Input":
+            self.nameWindow = Toplevel()
+            self.setName()
+            self.nameWindow["bg"] = "#607D8B"
+            root.wait_window(self.nameWindow)
+            inputName = self.nameLab
             inputType = ""
             className = ""
             ent = Entry(self.window)
-            ent.insert(END, textString)
+            ent.insert(END, inputName)
             ent.config(bg= "white")
         elif thisType == "Time Input":
             inputType = "time"
@@ -222,6 +228,7 @@ class Application(Frame):
             root.wait_window(self.optionsWindow)
             inputType = "radio"
             className = ""
+            inputName = self.dropLab
             ent = Radiobutton(self.window, text="Radio Button Group")
             ent.config(bg= "#607D8B", fg="black")
         elif thisType == "Checkbox":
@@ -231,6 +238,7 @@ class Application(Frame):
             root.wait_window(self.optionsWindow)
             inputType = "checkbox"
             className = ""
+            inputName = self.dropLab
             ent = Checkbutton(self.window, text="Check Button Group")
             ent.config(bg= "#607D8B")
         elif thisType == "Image Upload":
@@ -554,6 +562,29 @@ class Application(Frame):
         else:
             print("Invalid Range")
 
+    def setName(self):
+        
+        self.nameLab = ""
+
+        self.nameLabelFrame = Frame(self.nameWindow)
+        self.nameLabelFrame.pack(side="top")
+
+        self.nameLabel = Label(self.nameLabelFrame, text="Name: ")
+        self.nameLabel.pack(side="left")
+        self.nameName = Entry(self.nameLabelFrame)
+        self.nameName.pack(side="right")
+        self.nameLabel.config(bg= "#607D8B")
+
+
+        self.QUIT = Button(self.nameWindow, text="Save",
+                           command=self.saveName)
+        self.QUIT.config(image=img8, bg="#607D8B", bd=0)
+        self.QUIT.pack(side="bottom")
+
+    def saveName(self):
+        self.nameLab = self.nameName.get()
+        self.nameWindow.destroy()
+
     def setOptions(self):
         # Reset range values
         self.options.clear()
@@ -563,7 +594,7 @@ class Application(Frame):
         self.numOptionsFrame = Frame(self.optionsWindow)
         self.numOptionsFrame.pack(side="top")
 
-        self.dropLab = Label(self.rangeNameFrame, text="DropDown Label: ")
+        self.dropLab = Label(self.rangeNameFrame, text="Label: ")
         self.dropLab.pack(side="left")
         self.dropName = Entry(self.rangeNameFrame)
         self.dropName.pack(side="right")

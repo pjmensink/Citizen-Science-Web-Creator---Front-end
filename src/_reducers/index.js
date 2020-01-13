@@ -5,6 +5,7 @@ import { registration } from './registration.reducer';
 import { users } from './users.reducer';
 import { alert } from './alert.reducer';
 import { hist } from './history.reducer';
+import { full } from './full.reducer';
 import { images } from './images.reducer';
 
 const rootReducer = combineReducers({
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   users,
   alert,
   hist,
+  full,
   images
 });
 

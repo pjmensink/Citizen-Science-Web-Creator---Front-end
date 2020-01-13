@@ -28,7 +28,7 @@ class HomePage extends React.Component {
 		super(props);
 		// State contains data to be submitted
 		this.state = {
-						loc: '',
+						loc: 'canada',
 						size: '1',
 						conditions: '',
 						date: '',
@@ -98,7 +98,12 @@ class HomePage extends React.Component {
 	
 	onSubmit(model){
 		console.log(model);
+		console.log("A");
+		console.log(model);
+		console.log("B");
 		const { dispatch } = this.props;
+		console.log("this is it");
+		console.log(formData);
 		dispatch(userActions.submit(model));	// Dispatch a submit data request
 		//const imageURL = this.state.photo.split("\\").pop(); // Retrive just file name
 		//dispatch(userActions.submitImage(this.uploadInput.files[0], this.state.photo.split("\\").pop().split(".")[0])); // Dispatch a submit image request
@@ -106,7 +111,6 @@ class HomePage extends React.Component {
 	
 	render() {
 		const { user, users, hist } = this.props;
-		console.log(formData);
 		return (
 			<div>
 			<div style={{"backgroundImage": "url("+url+")", "height": "700px"}}>

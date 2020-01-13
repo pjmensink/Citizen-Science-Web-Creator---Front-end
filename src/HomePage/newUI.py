@@ -148,9 +148,9 @@ class Ui_MainWindow(object):
             from subprocess import Popen
             self.p1 = Popen(["npm", "start"], shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
             os.chdir('../ocean-eyes-frontend/src/HomePage/')
-            #print("Starting dev server")
-            #from subprocess import Popen
-            #self.p = Popen(["npm", "start"], shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
+            print("Starting dev server")
+            from subprocess import Popen
+            self.p = Popen(["npm", "start"], shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
             
     def tryPort(self, port):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

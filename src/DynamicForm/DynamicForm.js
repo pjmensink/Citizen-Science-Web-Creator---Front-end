@@ -6,6 +6,7 @@ import { userActions } from '../_actions';
 import { GoogleMap } from '../GoogleMap';
 import { Modal } from '../Modal';
 import './modal.css'; //Stylesheet for the modal window
+import './Dynamic.css';
 
 import { color } from '../HomePage/color.json'
 import { font } from '../HomePage/font.json'
@@ -16,6 +17,7 @@ class DynamicForm extends React.Component {
     constructor(props) {
         super(props);
         this.state ={};
+        console.log(this.state);
         this.showMap = false;
         this.onChange = this.onChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
@@ -42,6 +44,7 @@ class DynamicForm extends React.Component {
 	
     onSubmit(e) {
         e.preventDefault();
+	console.log("state" + this.state);
         if (this.props.onSubmit) this.props.onSubmit(this.state);
     }
 
@@ -49,6 +52,9 @@ class DynamicForm extends React.Component {
 	onChange(event) {
 		const target =  event.target;
 		const value = target.value;
+        console.log(target);
+        console.log("heree");
+        console.log(value);
 		const name = target.name
 		// Update state to new value
 		this.setState({
@@ -66,14 +72,17 @@ class DynamicForm extends React.Component {
             let type = m.type || "text";
             let props = m.props || {};
             let name= m.name;
-            let value = m.value;
+            console.log(name);
+            let value = "empty";
+            console.log(value);
             let min = m.min;
             let max = m.max;
             let className = m.className || "form-input";
             let groupName = m.groupName || "form-group";
 
-            let target = key;  
+            let target = key;
             value = this.state[target];
+            value = "empty";
 
             let input =  <input {...props}
                     className={className}
@@ -93,8 +102,8 @@ class DynamicForm extends React.Component {
                                     className="form-input"
                                     type={type}
                                     key={o.key}
-                                    name={o.name}
-                                    checked={checked}
+                                    name={name}
+                                    checked={this.props.checked}
                                     defaultValue={o.value}
                                     onChange={(e)=>{this.onChange(e, o.name)}}
                             />
@@ -102,24 +111,29 @@ class DynamicForm extends React.Component {
                         </React.Fragment>
                     );
                });
-               input = <div className ="form-group-radio">{input}</div>;
+               input = <div className ="form-group-radio" type="radio">{input}</div>;
             }
 
             if (type == "select") {
+		
                 input = m.options.map((o) => {
                     let checked = o.value == value;
                     console.log("select: ", o.value, value);
                      return (
                             <option {...props}
                                 className="form-input"
-                                key={o.key}
+                                type={type}
+                                key={key}
+                                name={name}
+                                checked={checked}
                                 defaultValue={o.value}
                             >{o.value}</option>
                      );
                 });
 
-                console.log("Select default: ", value);
                 input = <select value={value} onChange={(e)=>{this.onChange(e, m.key)}}>{input}</select>;
+		
+		
              }
 
              if (type == "checkbox") {
@@ -135,9 +149,9 @@ class DynamicForm extends React.Component {
                         <React.Fragment key={"cfr" + o.key}>
                             <input {...props}
                                 className="form-input"
-                                type={type}
+                                type="checkbox"
                                 key={o.key}
-                                name={o.name}
+                                name={name}
                                 checked={checked}
                                 defaultValue={o.value}
                                 onChange={(e)=>{this.onChange(e, m.key,"multiple")}}
@@ -147,7 +161,7 @@ class DynamicForm extends React.Component {
                      );
                 });
 
-                input = <div className ="form-group-checkbox">{input}</div>;
+                input = <div className ="form-group-checkbox"> {input}</div>;
 
              }
              

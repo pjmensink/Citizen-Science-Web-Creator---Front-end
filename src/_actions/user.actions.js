@@ -20,6 +20,7 @@ export const userActions = {
 	submit,
 	submitImage,
 	getHistory,
+	getItems,
 	getImages,
 	delete: _delete
 };
@@ -113,9 +114,9 @@ function _delete(id) {
 
 
 // Dispatch a request to save data a user has input
-function submit(id, loc, size, conditions, date, imageURL, lat, lng, species, common) {
+function submit(data) {
 	return dispatch => {
-		userService.saveData(id, loc, size, conditions, date, imageURL, lat, lng, species, common)
+		userService.saveData(data)
 			.then(
 				response => { 
 					dispatch(alertActions.success('Submitted Data'));
@@ -164,6 +165,26 @@ function getHistory() {
 	function failure(error) { return { type: userConstants.GETHIST_FAILURE, error } }
 }
 
+function getItems() {
+	return dispatch => {
+		dispatch(request());
+		dispatch(alertActions.clear());
+		//console.log(userService.getAllItems());
+		userService.getAllItems()
+			.then(
+				response => { 
+					dispatch(success(response));
+				},
+				error => {
+					dispatch(failure(error.toString()));
+				}
+			);
+	};
+    
+	function request() { return { type: userConstants.GETITEM_REQUEST } }
+	function success(res) { return { type: userConstants.GETITEM_SUCCESS, res } }
+	function failure(error) { return { type: userConstants.GETITEM_FAILURE, error } }
+}
 
 // Dispatch a request to retrive a users images
 function getImages() {
