@@ -7,9 +7,9 @@ Publish Version 1.1.0
 
 ## Project 
 
-This web creator tool is suitable for designing and deploying input forms with reference to citizen science. This promotes information gathering through the deployment of dynamic web forms.
+This web creator tool is suitable for designing and deploying input forms with reference to the field of citizen science. This promotes information gathering through the deployment of dynamic web forms.
 
-Firstly, the Citizen Science Web Creator offers an easy to use interactive graphical interface for users to view, design and edit their own custom citizen science web page containing input forms for data collection.
+Firstly, the Citizen Science Web Creator offers an easy to use interactive graphical interface for users to view, design and edit their own custom citizen science web pages containing input forms for data collection.
 
 In addition to this, this web application allows users to set up admin privileges and view data on a standard web browser as well as download the data in CSV format. 
 
