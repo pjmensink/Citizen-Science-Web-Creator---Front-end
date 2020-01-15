@@ -43,6 +43,11 @@ img11 = PhotoImage(file="button11.png")
 img12 = PhotoImage(file="button12.png")
 img13 = PhotoImage(file="button13.png")
 img14 = PhotoImage(file="button14.png")
+img15 = PhotoImage(file="button15.png")
+img16 = PhotoImage(file="button16.png")
+img17 = PhotoImage(file="button17.png")
+
+
 
 
 
@@ -709,7 +714,81 @@ class Application(Frame):
         print (text1)
         with open('about2.json', 'w') as outfile:
             data = ({'text2': text1})
-            json.dump(data, outfile)    
+            json.dump(data, outfile)
+
+    def codeWindow(self):
+        self.bgWindow = Toplevel(root)
+        self.bgWindow["bg"] = "#607D8B"
+        width = 330
+        height = 170
+        x = (self.bgWindow.winfo_screenwidth() // 2) - (width // 2)
+        y = (self.bgWindow.winfo_screenheight() // 2) - (height // 2)
+        self.bgWindow.geometry('{}x{}+{}+{}'.format(width, height, x, y))
+        self.topFrame = Label(self.bgWindow, text="Change Admin Access Code", underline=True, font="Helvetica 14", fg="white")
+        self.topFrame['bg'] = self.topFrame.master['bg']
+        f = font.Font(self.topFrame, self.topFrame.cget("font"))
+        f.configure(underline = True)
+        self.topFrame.configure(font=f)
+        self.topFrame.grid(row=0, column=1)
+
+        self.bgWindow.grid_rowconfigure(1, weight=0)
+        self.bgWindow.grid_columnconfigure(1, weight=1)
+
+        self.my_label20 = Label(self.bgWindow, text = "Access Code: ", bg= "#607D8B")
+        self.my_label20.grid(row = 2, column = 0)
+        self.my_entry20 = Entry(self.bgWindow, textvariable=1)
+        self.my_entry20.grid(row = 2, column = 1, pady=5, ipady=10)
+        self.my_button = Button(self.bgWindow, bg="#607D8B", bd=0, image=img5, command = self.textChange)
+        self.my_button.grid(row = 4, column = 1, pady=5)
+
+    #Method to actually change the json file holding the text 
+    def codeChange(self):
+        
+        adminCode = str(self.my_entry20.get())
+        
+        if adminCode == "\n" or adminCode == "":
+            adminCode = "admin1234"
+        
+        with open('access.json', 'w') as outfile:
+            data = ({'adminAcc': adminCode})
+            json.dump(data, outfile)
+
+    def apiWindow(self):
+        self.bgWindow = Toplevel(root)
+        self.bgWindow["bg"] = "#607D8B"
+        width = 330
+        height = 170
+        x = (self.bgWindow.winfo_screenwidth() // 2) - (width // 2)
+        y = (self.bgWindow.winfo_screenheight() // 2) - (height // 2)
+        self.bgWindow.geometry('{}x{}+{}+{}'.format(width, height, x, y))
+        self.topFrame = Label(self.bgWindow, text="Add apiURL link", underline=True, font="Helvetica 14", fg="white")
+        self.topFrame['bg'] = self.topFrame.master['bg']
+        f = font.Font(self.topFrame, self.topFrame.cget("font"))
+        f.configure(underline = True)
+        self.topFrame.configure(font=f)
+        self.topFrame.grid(row=0, column=1)
+
+        self.bgWindow.grid_rowconfigure(1, weight=0)
+        self.bgWindow.grid_columnconfigure(1, weight=1)
+
+        self.my_label21 = Label(self.bgWindow, text = "Paste apiURL: ", bg= "#607D8B")
+        self.my_label21.grid(row = 2, column = 0)
+        self.my_entry21 = Entry(self.bgWindow, textvariable=1)
+        self.my_entry21.grid(row = 2, column = 1, pady=5, ipady=10)
+        self.my_button = Button(self.bgWindow, bg="#607D8B", bd=0, image=img5, command = self.textChange)
+        self.my_button.grid(row = 4, column = 1, pady=5)
+
+    #Method to actually change the json file holding the text 
+    def apiChange(self):
+        
+        apiCode = str(self.my_entry21.get())
+        
+        if apiCode == "\n" or apiCode == "":
+            apiCode = "http://localhost:4000"
+        
+        with open('apiurl.json', 'w') as outfile:
+            data = ({'apiLink': apiCode})
+            json.dump(data, outfile)
 
     # Create a window to allow the user to change the lower image on homepage
     # User must include a URL that can link to an image on the internet
@@ -784,11 +863,20 @@ class Application(Frame):
         self.chooseStyles["command"] = self.pickStyle
         self.chooseStyles.grid(row =6, column=0,sticky="NSEW")
 
+        self.codeText = Button(self)
+        self.codeText.config(image=img15, bd=0, bg="#607D8B")
+        self.codeText["command"] = self.codeWindow
+        self.codeText.grid(row=7, column=0, sticky="NSEW")
+
+        self.apiText = Button(self)
+        self.apiText.config(image=img17, bd=0, bg="#607D8B")
+        self.apiText["command"] = self.apiWindow
+        self.apiText.grid(row=8, column=0, sticky="NSEW")
+
         self.QUIT = Button(self)
-          #                 command=self.quit)
         self.QUIT["command"] = self.quit
         self.QUIT.config(image=img4, bd=0, bg="#607D8B", activebackground="#97c7f1")
-        self.QUIT.grid(row =7, column=0,sticky="NSEW")
+        self.QUIT.grid(row =9, column=0,sticky="NSEW")
 
         self.changeBG = Button(self)
         self.changeBG.config(image=img10, bd=0, bg="#607D8B")

@@ -1,5 +1,8 @@
+
+
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var linkback = require('./src/HomePage/apiurl.json');
 
 module.exports = {
     entry: './src/index.jsx',
@@ -42,7 +45,7 @@ module.exports = {
         // global app config object
 	//
         config: JSON.stringify({
-            apiUrl: 'http://localhost:4000'
+            apiUrl: linkback.apiLink
         })
     }
 }
