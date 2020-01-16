@@ -1,5 +1,6 @@
-# Citizen-Science-Web-Creator---Front-end
+# Citizen-Science-Web-Creator
 =====================
+# Front End
 
 Publish Version 1.1.0
 
