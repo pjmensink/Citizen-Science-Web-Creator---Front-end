@@ -21,7 +21,7 @@ Citizen Science Web Creator is implemented and deployed following public license
 
 # Documentation/Files
 
-- [Admin web creator step-by-step guide](https://github.com/...)
+- [Admin web creator step-by-step guide](https://github.com/DomGarg/Citizen-Science-Web-Creator---Front-end/blob/master/Set-Up-Guide.pdf)
 - [Back-end portion](https://github.com/DomGarg/Citizen-Science-Web-Creator---Back-end)
 
 
