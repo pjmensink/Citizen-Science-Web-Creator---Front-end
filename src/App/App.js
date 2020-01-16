@@ -53,8 +53,8 @@ class App extends React.Component {
 									{loggedIn&&<li><Link to={'/home'}> <p style={{"fontSize": "20px"}}><b>Home</b></p> </Link></li>}
 									{loggedIn&&<li><Link to={'/history'}><p style={{"fontSize": "20px"}}><b>Upload History</b></p></Link></li>}
 									{loggedIn&&access&&<li><Link to={'/data'}><p style={{"fontSize": "20px"}}><b>All History</b></p></Link></li>}
-									{loggedIn&&<li><Link to={'/locations'}><p style={{"fontSize": "20px"}}><b>Location History</b></p></Link></li>}
-									{loggedIn&&<li><Link to={'/gallery'}><p style={{"fontSize": "20px"}}><b>Gallery</b></p></Link></li>}				
+									//{loggedIn&&<li><Link to={'/locations'}><p style={{"fontSize": "20px"}}><b>Location History</b></p></Link></li>}
+									//{loggedIn&&<li><Link to={'/gallery'}><p style={{"fontSize": "20px"}}><b>Gallery</b></p></Link></li>}				
 								  </ul>
 								  <ul className="nav navbar-nav navbar-right" style={{"paddingRight":"15px", "paddingTop": "5px"}}>
 									<li><Link to={'/register'}><p style={{"fontSize": "20px"}}>Signup</p></Link></li>

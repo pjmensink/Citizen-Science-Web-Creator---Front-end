@@ -46,7 +46,7 @@ module.exports = {
         // global app config object
 	//
         config: JSON.stringify({
-            apiUrl: 'https://webcreatorbackend.herokuapp.com'
+            apiUrl: linkback.apiLink
         })
     }
 }
