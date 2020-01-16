@@ -30,24 +30,9 @@ class HistoryPage extends React.Component {
 	const { user, users, hist, full } = this.props;
 
 
-	//const juice = this.props.userData.toArray();
-	//var result = Object.keys(hist.data).map(function(key) {
-  	//return [Number(key), hist.data[key]];
-	//});
-	//var hek = userActions.getItems();
+	
 	var obj = hist.data;
-	/**
-	this.props.full.then(function(value) {
-    console.log("First")
-    console.log(value);
-    console.log("Last");
-    // expected output: 123
-	}); **/
-	console.log("hist stuff");
-	console.log(this.props);
-	console.log("hist stuff");
-
-	//console.log(this.props.hist.items
+	
 
 	var x = -1;
 	let output = [];
@@ -57,10 +42,7 @@ class HistoryPage extends React.Component {
 	let filteredData = [];
 	const columns = [
 
-	/**{
-		Header: 'Data',
-		accessor: 'data.date'
-	},**/
+	
 	{
         Header: 'Data',
         id:'data',

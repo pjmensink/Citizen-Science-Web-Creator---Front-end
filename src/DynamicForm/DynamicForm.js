@@ -34,6 +34,20 @@ class DynamicForm extends React.Component {
 		this.setState( {lat: latitude} );
 		this.setState( {lng: longitude} );
 	}
+
+	//Set default values for model to "NA"
+
+	componentDidMount() {
+        var itemsDefault = this.props.model;
+		var itemsLength = itemsDefault.length;
+		for (var i = 0; i < itemsLength; i++) {
+		    this.setState({
+		    	[itemsDefault[i].name]: "NA"
+		    });
+		    
+		}
+		
+  }
 	
 	// Handle select location event
 	chooseLoc(event) {
@@ -45,6 +59,7 @@ class DynamicForm extends React.Component {
     onSubmit(e) {
         e.preventDefault();
 	console.log("state" + this.state);
+		console.log(this.props);
         if (this.props.onSubmit) this.props.onSubmit(this.state);
     }
 
@@ -52,9 +67,6 @@ class DynamicForm extends React.Component {
 	onChange(event) {
 		const target =  event.target;
 		const value = target.value;
-        console.log(target);
-        console.log("heree");
-        console.log(value);
 		const name = target.name
 		// Update state to new value
 		this.setState({
@@ -72,9 +84,7 @@ class DynamicForm extends React.Component {
             let type = m.type || "text";
             let props = m.props || {};
             let name= m.name;
-            console.log(name);
-            let value = "empty";
-            console.log(value);
+            let value = m.value;
             let min = m.min;
             let max = m.max;
             let className = m.className || "form-input";
@@ -82,7 +92,6 @@ class DynamicForm extends React.Component {
 
             let target = key;
             value = this.state[target];
-            value = "empty";
 
             let input =  <input {...props}
                     className={className}
@@ -93,6 +102,8 @@ class DynamicForm extends React.Component {
                     onChange={(e)=>{this.onChange(e)}}
                 />;
 
+            
+            console.log(this.props.model);
             if (type == "radio") {
                input = m.options.map((o) => {
                    let checked = o.value == value;
@@ -220,7 +231,7 @@ class DynamicForm extends React.Component {
 
         return (
             <div className={this.props.className} id="formTemplate" style={{"background": color, "font-family": font, "color": fontcolor}}>
-                <h3 className="form-title">{title}</h3>
+                <h3 className="form-title" id="titleForm" style={{color: fontcolor, fontFamily: font}}>{title}</h3>
                 <form className="dynamic-form" onSubmit={(e)=>{this.onSubmit(e)}}>
                     {this.renderForm()}
                     <div className="form-actions">

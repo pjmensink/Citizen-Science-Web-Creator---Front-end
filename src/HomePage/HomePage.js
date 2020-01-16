@@ -18,6 +18,8 @@ import { text4 } from './about4.json'
 import { url } from './background.json'
 import { image } from './image.json'
 import { titlename } from './title.json'
+import { font } from './font.json'
+import { fontcolor } from './fontcolor.json'
 
 import './inputForm.css'; //Stylesheet for the data input form
 import './modal.css'; //Stylesheet for the modal window
@@ -111,6 +113,10 @@ class HomePage extends React.Component {
 	
 	render() {
 		const { user, users, hist } = this.props;
+		const dynStyle = {
+		  fontFamily: font,
+		  color: fontcolor
+		};
 		return (
 			<div>
 			<div style={{"backgroundImage": "url("+url+")", "height": "700px"}}>
@@ -154,14 +160,19 @@ class HomePage extends React.Component {
 					</form>
 				</div>{*/}
 				{/*}<div style={{"position": "relative", "top": "100px", "margin": "10px auto"}}><h1 style={{"fontFamily": "arial", "color": "yellow"}}><b>OCEAN EYES</b></h1></div>{*/}
+				
+
+
 				<DynamicForm className="form"
 				  title={ titlename }
+				  style={ dynStyle }
 				  model={
 					formData
 				  }
 				  className={styleData["style"]}
 				  onSubmit = {(model) => {this.onSubmit(model)}} 
 				/>
+				
 			</div>
 			
 			<div style={{"float": "left", "margin": "5px", "width": "40%"}}>

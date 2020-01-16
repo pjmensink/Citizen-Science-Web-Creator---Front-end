@@ -144,13 +144,13 @@ class Ui_MainWindow(object):
         #os.chdir('../../../ocean-eyes-backend/')
         #print (os.getcwd())
         #if self.tryPort(8080):
-            os.chdir('../../../ocean-eyes-backend/')
+            #os.chdir('../../../ocean-eyes-backend/')
             from subprocess import Popen
             self.p1 = Popen(["npm", "start"], shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
-            os.chdir('../ocean-eyes-frontend/src/HomePage/')
-            print("Starting dev server")
-            from subprocess import Popen
-            self.p = Popen(["npm", "start"], shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
+            #os.chdir('../ocean-eyes-frontend/src/HomePage/')
+            #print("Starting dev server")
+            #from subprocess import Popen
+            #self.p = Popen(["npm", "start"], shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
             
     def tryPort(self, port):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

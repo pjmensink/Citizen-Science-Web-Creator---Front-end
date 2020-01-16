@@ -28,7 +28,7 @@ root.grid_columnconfigure(0, weight=1)
 
 # Initialize all the images used within the UI
 
-img5 = PhotoImage(file="button6.png")
+img5 = PhotoImage(file="button16.png")
 img6 = PhotoImage(file="button7.png")
 img = PhotoImage(file="button1.png")
 img1 = PhotoImage(file="button2.png")
@@ -44,7 +44,6 @@ img12 = PhotoImage(file="button12.png")
 img13 = PhotoImage(file="button13.png")
 img14 = PhotoImage(file="button14.png")
 img15 = PhotoImage(file="button15.png")
-img16 = PhotoImage(file="button16.png")
 img17 = PhotoImage(file="button17.png")
 
 
@@ -738,7 +737,7 @@ class Application(Frame):
         self.my_label20.grid(row = 2, column = 0)
         self.my_entry20 = Entry(self.bgWindow, textvariable=1)
         self.my_entry20.grid(row = 2, column = 1, pady=5, ipady=10)
-        self.my_button = Button(self.bgWindow, bg="#607D8B", bd=0, image=img5, command = self.textChange)
+        self.my_button = Button(self.bgWindow, bg="#607D8B", bd=0, image=img5, command = self.codeChange)
         self.my_button.grid(row = 4, column = 1, pady=5)
 
     #Method to actually change the json file holding the text 
@@ -775,7 +774,7 @@ class Application(Frame):
         self.my_label21.grid(row = 2, column = 0)
         self.my_entry21 = Entry(self.bgWindow, textvariable=1)
         self.my_entry21.grid(row = 2, column = 1, pady=5, ipady=10)
-        self.my_button = Button(self.bgWindow, bg="#607D8B", bd=0, image=img5, command = self.textChange)
+        self.my_button = Button(self.bgWindow, bg="#607D8B", bd=0, image=img5, command = self.apiChange)
         self.my_button.grid(row = 4, column = 1, pady=5)
 
     #Method to actually change the json file holding the text 
@@ -785,6 +784,9 @@ class Application(Frame):
         
         if apiCode == "\n" or apiCode == "":
             apiCode = "http://localhost:4000"
+
+        if apiCode.endswith('/'):
+            apiCode = apiCode[:-1]
         
         with open('apiurl.json', 'w') as outfile:
             data = ({'apiLink': apiCode})
