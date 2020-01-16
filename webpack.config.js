@@ -39,13 +39,15 @@ module.exports = {
         inject: 'body'
     })],
     devServer: {
-        historyApiFallback: true
+        historyApiFallback: true,
+	host: '0.0.0.0',
+        disableHostCheck: true
     },
     externals: {
         // global app config object
 	//
         config: JSON.stringify({
-            apiUrl: linkback.apiLink
+            apiUrl: 'https://webcreatorbackend.herokuapp.com'
         })
     }
 }
