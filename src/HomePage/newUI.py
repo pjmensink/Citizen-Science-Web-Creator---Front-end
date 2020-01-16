@@ -146,7 +146,7 @@ class Ui_MainWindow(object):
         #if self.tryPort(8080):
             #os.chdir('../../../ocean-eyes-backend/')
             from subprocess import Popen
-            self.p1 = Popen(["npm", "start"], shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
+            self.p1 = Popen(["npm", "go"], shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
             #os.chdir('../ocean-eyes-frontend/src/HomePage/')
             #print("Starting dev server")
             #from subprocess import Popen
