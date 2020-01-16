@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --port $PORT --host 0.0.0.0 --open",
-    "go": "webpack-dev-server --port $PORT --open"
+    "test": "webpack-dev-server --open"
   },
   "dependencies": {
     "ajv": "^6.5.5",
