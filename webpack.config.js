@@ -39,7 +39,9 @@ module.exports = {
         inject: 'body'
     })],
     devServer: {
-        historyApiFallback: true
+        historyApiFallback: true,
+	host: '0.0.0.0',
+        disableHostCheck: true
     },
     externals: {
         // global app config object
